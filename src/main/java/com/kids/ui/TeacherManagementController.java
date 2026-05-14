@@ -263,7 +263,7 @@ public class TeacherManagementController implements Initializable {
 
     private void loadTeachers() {
         // In a real app, inject TeacherRepository or use a TeacherService.findAll()
-        // teachers.setAll(teacherService.findAllActive());
+         teachers.setAll(teacherService.findAllActive());
     }
 
     // ── Utility ───────────────────────────────────────────────────────────────

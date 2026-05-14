@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.util.List;
 
 /**
  * Core service for Teacher management.
@@ -178,5 +179,9 @@ public class TeacherService {
             teacher.getName(), yearMonth, amountToPay, status);
 
         return saved;
+    }
+
+    public List<Teacher> findAllActive() {
+        return this.teacherRepo.findByStatus(Teacher.TeacherStatus.ACTIVE);
     }
 }

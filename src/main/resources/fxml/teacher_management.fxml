@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ComboBox?>
+<VBox fx:id="rootPane" spacing="10" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.kids.ui.TeacherManagementController" style="-fx-padding: 20;">
+
+    <Label fx:id="lblTitle" style="-fx-font-size: 24; -fx-font-weight: bold;" />
+
+    <HBox spacing="15" VBox.vgrow="ALWAYS">
+        <!-- LEFT SIDE: Teacher Table & Search -->
+        <VBox spacing="10" HBox.hgrow="ALWAYS">
+            <TextField fx:id="searchField" promptText="Search teachers... / ابحث عن معلم" />
+            <TableView fx:id="teacherTable" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colName" text="Name" prefWidth="150" />
+                    <TableColumn fx:id="colSpecialty" text="Specialty" prefWidth="120" />
+                    <TableColumn fx:id="colSalaryType" text="Type" prefWidth="100" />
+                    <TableColumn fx:id="colStatus" text="Status" prefWidth="80" />
+                </columns>
+            </TableView>
+        </VBox>
+
+        <!-- RIGHT SIDE: Attendance & Salary Panels -->
+        <VBox spacing="20" prefWidth="350">
+            <!-- Attendance Section -->
+            <VBox style="-fx-border-color: #ddd; -fx-padding: 10; -fx-background-color: #f9f9f9;">
+                <Label text="Attendance / الحضور" style="-fx-font-weight: bold;" />
+                <DatePicker fx:id="attendanceDatePicker" />
+                <HBox spacing="10">
+                    <RadioButton fx:id="rbPresent" text="Present">
+                        <toggleGroup><ToggleGroup fx:id="attendanceToggleGroup"/></toggleGroup>
+                    </RadioButton>
+                    <RadioButton fx:id="rbAbsent" text="Absent" toggleGroup="$attendanceToggleGroup" />
+                    <RadioButton fx:id="rbLate" text="Late" toggleGroup="$attendanceToggleGroup" />
+                    <RadioButton fx:id="rbExcused" text="Excused" toggleGroup="$attendanceToggleGroup" />
+                </HBox>
+                <Spinner fx:id="sessionsSpinner" />
+                <TextArea fx:id="attendanceNotes" prefHeight="60" promptText="Notes..." />
+                <Button fx:id="btnMarkAttendance" styleClass="btn-primary" />
+            </VBox>
+
+            <!-- Salary Section -->
+            <VBox style="-fx-border-color: #ddd; -fx-padding: 10; -fx-background-color: #eef7ee;">
+                <Label text="Payroll / الرواتب" style="-fx-font-weight: bold;" />
+                <Label fx:id="lblGrossSalary" />
+                <Label fx:id="lblPaid" />
+                <Label fx:id="lblPending" style="-fx-text-fill: red;" />
+                <Separator />
+                <TextField fx:id="txtPayAmount" promptText="Amount" />
+                <ComboBox fx:id="cbPaymentMethod" maxWidth="Infinity" />
+                <TextField fx:id="txtReference" promptText="Reference (e.g. Check #)" />
+                <Button fx:id="btnPayNow" maxWidth="Infinity" />
+            </VBox>
+        </VBox>
+    </HBox>
+</VBox>

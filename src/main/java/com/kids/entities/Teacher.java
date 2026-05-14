@@ -13,7 +13,7 @@ import java.time.LocalDate;
  *   PER_SESSION: sessionRate × sessionsAttended
  */
 @Entity
-@Table(name = "Teachers")
+@Table(name = "teachers")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class Teacher {
 
