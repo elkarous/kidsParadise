@@ -1,67 +1,98 @@
 package com.kids.ui;
 
+import com.kids.configuration.AppContext;
+import com.kids.entities.SchoolYear;
+import com.kids.services.SchoolYearService;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ConfigurableApplicationContext;
+import javafx.util.StringConverter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import lombok.RequiredArgsConstructor;
 
-import java.awt.event.ActionEvent;
-import java.io.IOException;
-import java.net.URL;
-import java.util.Locale;
-import java.util.ResourceBundle;
+
+import java.util.List;
 
 @Component
-@RequiredArgsConstructor
 public class LoginController {
-
-    private final ConfigurableApplicationContext springContext; // Inject the context
 
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
+    @FXML private ComboBox<SchoolYear> comboSchoolYear; // قائمة السنوات الدراسية تحت حقول الإدخال
     @FXML private Button loginButton;
 
+    @Autowired
+    private SchoolYearService schoolYearService;
+
     @FXML
-    public void handleLogin() {
-        String user = usernameField.getText();
-        String pass = passwordField.getText();
+    public void initialize() {
+        // 1. جلب كل السنوات وتعبئة الـ ComboBox
+        List<SchoolYear> allYears = schoolYearService.getAllYears();
+// طباعة الحجم للتأكد
+        System.out.println("Data size from DB: " + allYears.size());
 
-        if ("admin".equals(user) && "admin123".equals(pass)) {
+// طباعة قيمة حقل محدد يدوياً للتأكد من نجاح الـ Mapping
+        if (!allYears.isEmpty() && allYears.get(0) != null) {
+            System.out.println("First Year Name: " + allYears.get(0).getYearName());
+        } else {
+            System.out.println("The list contains actual null pointers!");
+        }
+        comboSchoolYear.setItems(FXCollections.observableArrayList(allYears));
 
-                // 1. Load the new FXML
-                navigateToDashboard();
+        // 2. ضبط الـ Converter لكي يظهر اسم السنة فقط (مثال: "2025-2026")
+        comboSchoolYear.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(SchoolYear year) {
+                return year == null ? "" : year.getYearName();
+            }
+            @Override
+            public SchoolYear fromString(String string) {
+                return null;
+            }
+        });
 
-    }}
-
-    private void navigateToDashboard() {
-        try {
-            // Force the app to look for Arabic specifically
-            Locale locale = new Locale("ar");
-            ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
-            URL fxmlLocation = getClass().getResource("/fxml/student_management.fxml");
-            FXMLLoader loader = new FXMLLoader(fxmlLocation);
-
-            // 2. IMPORTANT: Pass the bundle to the loader
-            loader.setResources(bundle);
-
-            // 3. Keep your Spring context factory
-            loader.setControllerFactory(springContext::getBean);
-
-            Parent root = loader.load();
-
-            Stage stage = (Stage) loginButton.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        // 3. السحر هنا: تحديد السنة الحالية تلقائياً كخيار افتراضي
+        SchoolYear actualYear = schoolYearService.findActualYear();
+        if (actualYear != null) {
+            comboSchoolYear.getSelectionModel().select(actualYear);
+        } else if (!allYears.isEmpty()) {
+            // كخطة بديلة (Fallback): إذا لم يطابق تاريخ اليوم أي سنة، اختر أول سنة في القائمة
+            comboSchoolYear.getSelectionModel().selectFirst();
         }
     }
-}
+
+    @FXML
+    private void handleLogin() {
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+
+        if (isValidLogin(username, password)) {
+            SchoolYear selectedYear = comboSchoolYear.getSelectionModel().getSelectedItem();
+            if (selectedYear == null) {
+                showError("الرجاء اختيار سنة دراسية ممتدة قبل الدخول.");
+                return;
+            }
+
+            // 1. تثبيت السنة الدراسية عالمياً في الـ AppContext
+            AppContext.getInstance().setCurrentSchoolYear(selectedYear);
+
+            // 2. جلب الـ Stage الحالي الخاص بشاشة تسجيل الدخول
+            Stage currentStage = (Stage) loginButton.getScene().getWindow();
+
+            // 3. القفز فوراً إلى لوحة التحكم الرئيسية بأمان
+            MainDashboardController.loadDashboard(currentStage);
+
+        } else {
+            showError("اسم المستخدم أو كلمة المرور غير صحيحة.");
+        }
+    }
+
+    private boolean isValidLogin(String user, String pass) {
+        // منطق التحقق الخاص بك هنا
+        return "admin".equals(user) && "admin".equals(pass);
+    }
+
+    private void showError(String msg) {
+        new Alert(Alert.AlertType.ERROR, msg, ButtonType.OK).showAndWait();
+    }}

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Data
-@ToString
+
 public class Parent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,4 +20,8 @@ public class Parent {
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Student> children; // One parent -> many children
+    @Override
+    public String toString() {
+        return fatherName + " " + phoneNumber ;
+    }
 }

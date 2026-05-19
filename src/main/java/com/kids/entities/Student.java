@@ -18,7 +18,6 @@ public class Student {
 
     private String firstName;
     private String lastName;
-    private String fullName; // You can concatenate this in the getter
     private LocalDate birthDate;
     private String parentContact;
     @ManyToOne
