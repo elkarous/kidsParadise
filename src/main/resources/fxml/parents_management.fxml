@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="15.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.kids.ui.ParentController" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+      AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" style="-fx-background-color: #f8f9fa;">
+
+    <padding>
+        <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
+    </padding>
+
+    <HBox spacing="10.0" alignment="CENTER_LEFT" style="-fx-background-color: white; -fx-padding: 10; -fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 1);">
+        <Label text="%search.parent" style="-fx-font-weight: bold;"/>
+        <TextField fx:id="txtSearch" promptText="%search.placeholder" prefWidth="300.0" style="-fx-background-radius: 5;"/>    </HBox>
+
+    <TableView fx:id="parentTable" VBox.vgrow="ALWAYS" style="-fx-background-radius: 8; -fx-overflow-x: hidden;">
+        <columns>
+            <TableColumn fx:id="colAction" prefWidth="80.0" style="-fx-alignment: CENTER;" />
+            <TableColumn fx:id="colFatherName" prefWidth="150.0" text="%parent.fatherName"/>
+            <TableColumn fx:id="colMotherName" prefWidth="150.0" text="%parent.motherName"/>
+            <TableColumn fx:id="colPhone" prefWidth="120.0" text="%parent.phone"/>
+            <TableColumn fx:id="colStudentCount" prefWidth="120.0" text="%parent.student.count"/>
+            <TableColumn fx:id="colTotalFees" prefWidth="120.0" text="%parent.total.fee"/>
+        </columns>
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+        </columnResizePolicy>
+    </TableView>
+</VBox>

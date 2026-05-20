@@ -1,8 +1,5 @@
 package com.kids.ui;
 
-
-
-
 import com.kids.configuration.AppContext;
 import com.kids.configuration.SpringContextProvider;
 import javafx.fxml.FXML;
@@ -14,18 +11,27 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+
 @Component
 public class MainDashboardController {
 
+    // جعل الحقن يمر عبر @Autowired على مستوى الحقول أو الكونسلوكتور بشكل متناسق
     @Autowired
-    private ApplicationContext springContext; // حقن سياق سبرينج في الأعلى
+    private ConfigurableApplicationContext springContext;
+
+    @Autowired
+    private java.util.ResourceBundle resourceBundle;
 
     @FXML private Label lblCurrentYear;
-    @FXML private VBox contentArea; // الحاوية المركزية التي سنعرض بداخلها الشاشات الفرعية
+    @FXML private VBox contentArea;
+
+    // كونسلوكتور فارغ إلزامي لـ JavaFX وسبرينج سيتولى حقن الحقول بالأعلى تلقائياً
+    public MainDashboardController() {
+    }
 
     @FXML
     public void initialize() {
@@ -35,18 +41,20 @@ public class MainDashboardController {
         }
     }
 
-    /**
-     * دالة عامة وذكية لتحميل أي شاشة فرعية FXML داخل المنطقة المركزية للـ Dashboard
-     */
     private void setCenterView(String fxmlPath) {
         try {
-            // مسح الشاشة الافتراضية أو الشاشة السابقة
             contentArea.getChildren().clear();
 
-            // تحميل واجهة القسم الجديد
-            Node node = FXMLLoader.load(getClass().getResource(fxmlPath));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
 
-            // جعل الواجهة الفرعية تتمدد لتملأ كامل مساحة الـ Dashboard المركزية
+            // 1. تزويد الـ Loader بملف الترجمة لحل خطأ "No resources specified"
+            loader.setResources(resourceBundle);
+
+            // 2. إجبار JavaFX على جلب الـ Controller من قلب Spring Boot بأمان
+            loader.setControllerFactory(springContext::getBean);
+
+            Node node = loader.load();
+
             VBox.setVgrow(node, javafx.scene.layout.Priority.ALWAYS);
             if (node instanceof VBox) {
                 ((VBox) node).setMaxWidth(Double.MAX_VALUE);
@@ -56,7 +64,7 @@ public class MainDashboardController {
             contentArea.getChildren().add(node);
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("خطأ أثناء تبديل الواجهة الداخلية: " + e.getMessage());
+            System.err.println("خطأ أثناء تحميل الواجهة الداخلية: " + e.getMessage());
         }
     }
 
@@ -64,30 +72,31 @@ public class MainDashboardController {
 
     @FXML
     private void showStudentsView() {
-        setCenterView("/fxml/student_management.fxml"); // مسار ملف واجهة الطلاب الخاص بك
+        setCenterView("/fxml/student_management.fxml");
     }
 
     @FXML
     private void showParentsView() {
-        setCenterView("/fxml/parents_list.fxml");
+        setCenterView("/fxml/parents_management.fxml");
     }
 
     @FXML
     private void showSessionsView() {
-        setCenterView("/fxml/sessions_manager.fxml");
+        setCenterView("/fxml/spaces_management.fxml");
     }
 
     @FXML
     private void showAttendanceView() {
-        // الشاشة التي ستحتوي على التصفية والدفتر الذي صممنا الـ SQL له
         setCenterView("/fxml/attendance_register.fxml");
     }
-
+    @FXML
+    private void showPaymentsView() {
+        setCenterView("/fxml/payments_manager.fxml"); // المسار الفعلي لملف واجهة المدفوعات الرئيسي
+    }
     @FXML
     private void showSettingsView() {
         setCenterView("/fxml/settings.fxml");
     }
-
 
     @FXML
     private void handleLogout() {
@@ -97,8 +106,9 @@ public class MainDashboardController {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
 
-            // الحل السحري: استخدام الـ ContextProvider لمنع الـ NullPointerException نهائياً
+            // استخدام الـ ContextProvider لمنع الـ NullPointerException عند الخروج
             loader.setControllerFactory(SpringContextProvider.getContext()::getBean);
+            loader.setResources(resourceBundle);
 
             Parent root = loader.load();
 
@@ -108,22 +118,30 @@ public class MainDashboardController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+            System.err.println("خطأ أثناء تسجيل الخروج: " + e.getMessage());
         }
     }
 
     /**
-     * الدالة المساعدة لفتح لوحة التحكم لأول مرة والمستدعاة من الـ LoginController
+     * الدالة المساعدة المحدثة والآمنة لفتح لوحة التحكم لأول مرة من الـ LoginController
      */
     public static void loadDashboard(Stage currentStage) {
         try {
-            Parent root = FXMLLoader.load(MainDashboardController.class.getResource("/fxml/main_dashboard.fxml"));
+            FXMLLoader loader = new FXMLLoader(MainDashboardController.class.getResource("/fxml/main_dashboard.fxml"));
+
+            // التعديل السحري: ربط شاشة الـ Dashboard بسبرينج منذ لحظة ولادتها الأولى!
+            loader.setControllerFactory(SpringContextProvider.getContext()::getBean);
+            loader.setResources(SpringContextProvider.getContext().getBean(java.util.ResourceBundle.class));
+
+            Parent root = loader.load();
             Scene scene = new Scene(root);
             currentStage.setTitle("نظام جنة الصغار الإداري");
             currentStage.setScene(scene);
-            currentStage.setMaximized(true); // فتح بكامل الشاشة لإعطاء طابع الأنظمة الكبيرة
+            currentStage.setMaximized(true);
             currentStage.show();
         } catch (IOException e) {
             e.printStackTrace();
+            System.err.println("خطأ أثناء تحميل لوحة التحكم الرئيسية: " + e.getMessage());
         }
     }
 }

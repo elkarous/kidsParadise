@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Represents a teacher in the Garden School system.
@@ -61,6 +62,8 @@ public class Teacher {
     @Builder.Default
     private TeacherStatus status = TeacherStatus.ACTIVE;
 
+    @OneToMany(mappedBy = "teacher", fetch = FetchType.LAZY)
+    private List<SchoolClass> schoolClasses;
     // ── Enums ────────────────────────────────────────────────────────────────
 
     public enum SalaryType {

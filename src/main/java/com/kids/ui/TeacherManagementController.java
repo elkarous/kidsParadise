@@ -162,7 +162,7 @@ public class TeacherManagementController implements Initializable {
             return;
         }
 
-        TeacherAttendance.AttendanceStatus status = getSelectedAttendanceStatus();
+        AttendanceStatus status = getSelectedAttendanceStatus();
         LocalDate date     = attendanceDatePicker.getValue();
         int       sessions = sessionsSpinner.getValue();
         String    notes    = attendanceNotes.getText();
@@ -176,12 +176,12 @@ public class TeacherManagementController implements Initializable {
         }
     }
 
-    private TeacherAttendance.AttendanceStatus getSelectedAttendanceStatus() {
+    private AttendanceStatus getSelectedAttendanceStatus() {
         Toggle selected = attendanceToggleGroup.getSelectedToggle();
-        if (selected == rbPresent) return TeacherAttendance.AttendanceStatus.PRESENT;
-        if (selected == rbLate)    return TeacherAttendance.AttendanceStatus.LATE;
-        if (selected == rbAbsent)  return TeacherAttendance.AttendanceStatus.ABSENT;
-        return TeacherAttendance.AttendanceStatus.EXCUSED;
+        if (selected == rbPresent) return AttendanceStatus.PRESENT;
+        if (selected == rbLate)    return AttendanceStatus.LATE;
+        if (selected == rbAbsent)  return AttendanceStatus.ABSENT;
+        return AttendanceStatus.EXCUSED;
     }
 
     // ── Salary Panel ──────────────────────────────────────────────────────────

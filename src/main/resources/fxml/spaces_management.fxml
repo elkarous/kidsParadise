@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<SplitPane dividerPositions="0.4" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.kids.ui.SpacesManagementController" style="-fx-background-color: #f8f9fa;">
+
+    <VBox spacing="10.0" style="-fx-padding: 15;">
+        <Label text="%space.levelsManagement" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #007bff;"/>
+
+        <TableView fx:id="levelTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colLevelId" prefWidth="60.0" text="ID"/>
+                <TableColumn fx:id="colLevelName" prefWidth="180.0" text="%space.levelName"/>
+            </columns>
+        </TableView>
+
+        <VBox spacing="8.0" style="-fx-background-color: white; -fx-padding: 10; -fx-background-radius: 5;">
+            <TextField fx:id="txtLevelName" promptText="%space.levelNamePrompt"/>
+            <HBox spacing="10.0" alignment="CENTER">
+                <Button text="%btn.add" onAction="#handleAddLevel" style="-fx-background-color: #28a745; -fx-text-fill: white;"/>
+                <Button text="%btn.update" onAction="#handleUpdateLevel" style="-fx-background-color: #ffc107; -fx-text-fill: black;"/>
+                <Button text="%btn.delete" onAction="#handleDeleteLevel" style="-fx-background-color: #dc3545; -fx-text-fill: white;"/>
+            </HBox>
+        </VBox>
+    </VBox>
+
+    <VBox spacing="10.0" style="-fx-padding: 15;">
+        <Label text="%space.classesManagement" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #28a745;"/>
+
+        <TableView fx:id="classTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colClassId" prefWidth="50.0" text="ID"/>
+                <TableColumn fx:id="colClassName" prefWidth="130.0" text="%space.className"/>
+                <TableColumn fx:id="colClassLevel" prefWidth="110.0" text="%attendance.level"/>
+                <TableColumn fx:id="colClassTeacher" prefWidth="130.0" text="%class.teacher"/>
+            </columns>
+        </TableView>
+
+        <VBox spacing="8.0" style="-fx-background-color: white; -fx-padding: 10; -fx-background-radius: 5;">
+            <HBox spacing="10.0">
+                <TextField fx:id="txtClassName" promptText="%space.classNamePrompt" HBox.hgrow="ALWAYS"/>
+            </HBox>
+            <HBox spacing="10.0">
+                <ComboBox fx:id="comboLevelFilter" promptText="%attendance.chooseLevel" HBox.hgrow="ALWAYS" prefWidth="150.0"/>
+                <ComboBox fx:id="comboTeacherFilter" promptText="%space.chooseTeacher" HBox.hgrow="ALWAYS" prefWidth="150.0"/>
+            </HBox>
+            <HBox spacing="10.0" alignment="CENTER">
+                <Button text="%btn.add" onAction="#handleAddClass" style="-fx-background-color: #28a745; -fx-text-fill: white;"/>
+                <Button text="%btn.update" onAction="#handleUpdateClass" style="-fx-background-color: #ffc107; -fx-text-fill: black;"/>
+                <Button text="%btn.delete" onAction="#handleDeleteClass" style="-fx-background-color: #dc3545; -fx-text-fill: white;"/>
+            </HBox>
+        </VBox>
+    </VBox>
+</SplitPane>

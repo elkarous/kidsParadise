@@ -49,7 +49,13 @@
                     <font><Font size="14.0" /></font>
                     <cursor><Cursor fx:constant="HAND" /></cursor>
                 </Button>
-
+                <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#showPaymentsView" prefHeight="40.0" styleClass="sidebar-btn" text="%menu.payments"  textFill="WHITE">
+                    <font><Font size="14.0" /></font>
+                    <graphic>
+                        <de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView glyphName="MONEY" glyphSize="16" style="-fx-fill: white;"/>
+                    </graphic>
+                    <cursor><Cursor fx:constant="HAND" /></cursor>
+                </Button>
                 <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#showSessionsView" prefHeight="40.0" styleClass="sidebar-btn" text="📅 جدول الحصص" textFill="WHITE">
                     <font><Font size="14.0" /></font>
                     <cursor><Cursor fx:constant="HAND" /></cursor>

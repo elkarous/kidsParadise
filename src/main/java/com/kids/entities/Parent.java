@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,9 +18,8 @@ public class Parent {
     private String motherName;
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
-    @ToString.Exclude
-    private List<Student> children; // One parent -> many children
+    @OneToMany(mappedBy = "parent", fetch = FetchType.EAGER) // شحن البيانات فوراً مع الأب
+    private List<Student> children = new ArrayList<>();
     @Override
     public String toString() {
         return fatherName + " " + phoneNumber ;

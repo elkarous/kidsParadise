@@ -48,13 +48,4 @@ public class TeacherAttendance {
     /** Free-text notes (supports Arabic) */
     @Column(length = 500)
     private String notes;
-
-    // ── Enum ─────────────────────────────────────────────────────────────────
-
-    public enum AttendanceStatus {
-        PRESENT,  // حاضر
-        LATE,     // متأخر
-        ABSENT,   // غائب
-        EXCUSED   // معذور
-    }
 }

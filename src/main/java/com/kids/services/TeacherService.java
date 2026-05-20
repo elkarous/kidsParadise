@@ -1,7 +1,6 @@
 package com.kids.services;
 
 import com.kids.entities.*;
-import com.kids.repositories.*;
 import com.kids.repositories.TeacherAttendanceRepository;
 import com.kids.repositories.TeacherPaymentRepository;
 import com.kids.repositories.TeacherRepository;
@@ -17,18 +16,16 @@ import java.util.List;
 
 /**
  * Core service for Teacher management.
- *
+
  * ── Payroll Philosophy ──────────────────────────────────────────────────────
- *
+
  *  FIXED_MONTHLY:
  *    netSalary = baseSalary
  *              - (unexcusedAbsences × absencePenaltyPerDay)
  *              - advancesAlreadyPaid
- *
  *  PER_SESSION:
  *    netSalary = sessionsAttended × sessionRate
  *              - advancesAlreadyPaid
- *
  * The "pending salary" is what is still owed after any advance payments.
  * ────────────────────────────────────────────────────────────────────────────
  */
@@ -50,7 +47,7 @@ public class TeacherService {
     @Transactional
     public TeacherAttendance markAttendance(Long teacherId,
                                             LocalDate date,
-                                            TeacherAttendance.AttendanceStatus status,
+                                            AttendanceStatus status,
                                             int sessionsCount,
                                             String notes) {
 
@@ -109,7 +106,6 @@ public class TeacherService {
     /**
      * Calculate how much salary is still PENDING (owed but not yet paid)
      * for a teacher in a given month.
-     *
      * pendingSalary = grossSalary - advancesAndPaymentsAlreadyMade
      */
     public BigDecimal calculatePendingSalary(Long teacherId, YearMonth yearMonth) {
@@ -123,7 +119,6 @@ public class TeacherService {
 
     /**
      * Record a salary payment for a teacher.
-     *
      * ⚠️  @Transactional ensures that both the payment record insertion
      *     AND any status updates happen atomically. If either fails,
      *     the entire transaction rolls back — no phantom payments.
@@ -183,5 +178,8 @@ public class TeacherService {
 
     public List<Teacher> findAllActive() {
         return this.teacherRepo.findByStatus(Teacher.TeacherStatus.ACTIVE);
+    }
+    public List<Teacher> findAll() {
+        return this.teacherRepo.findAll();
     }
 }

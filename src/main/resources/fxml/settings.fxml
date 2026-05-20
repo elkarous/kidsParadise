@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="15.0" style="-fx-padding: 20; -fx-background-color: #f8f9fa;"
+      xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.kids.ui.SettingsController">
+
+    <Label text="لوحة التحكم والإعدادات" style="-fx-font-weight: bold; -fx-font-size: 20px; -fx-text-fill: #2d3748;"/>
+
+    <TabPane fx:id="settingsTabPane" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS"
+             style="-fx-background-color: white; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #e2e8f0;">
+
+        <Tab text="إعدادات الروضة">
+            <VBox spacing="15.0" style="-fx-padding: 20;">
+                <GridPane hgap="15.0" vgap="15.0">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="120.0" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                    </columnConstraints>
+
+                    <Label text="اسم الروضة:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <TextField fx:id="txtKindergartenName" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                    <Label text="رقم الهاتف:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <TextField fx:id="txtKindergartenPhone" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                    <Label text="العنوان:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                    <TextField fx:id="txtKindergartenAddress" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                </GridPane>
+
+                <Button text="حفظ الإعدادات العامة" onAction="#handleSaveGeneralSettings"
+                        style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            </VBox>
+        </Tab>
+
+        <Tab text="السنوات الدراسية والأشهر">
+            <VBox spacing="15.0" style="-fx-padding: 20;">
+                <Label text="إطلاق موسم دراسي جديد وتوليد الأشهر تلقائياً" style="-fx-font-weight: bold; -fx-text-fill: #4c51bf;"/>
+
+                <HBox spacing="10.0" alignment="CENTER_LEFT">
+                    <TextField fx:id="txtYearName" promptText="مثال: 2026-2027" prefWidth="180.0" style="-fx-pref-height: 35;"/>
+                    <Button text="إطلاق السنة وتوليد الأشهر 🚀" onAction="#handleCreateYear"
+                            style="-fx-background-color: #4c51bf; -fx-text-fill: white; -fx-font-weight: bold; -fx-pref-height: 35;"/>
+                </HBox>
+
+                <Separator/>
+
+                <Label text="السنوات الدراسية المسجلة حالياً:" style="-fx-font-weight: bold; -fx-text-fill: #718096;"/>
+                <TableView fx:id="yearTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colId" prefWidth="60.0" text="ID"/>
+                        <TableColumn fx:id="colYearName" prefWidth="250.0" text="الموسم الدراسي"/>
+                        <TableColumn fx:id="colStatus" prefWidth="150.0" text="الحالة (نشطة)"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </Tab>
+    </TabPane>
+</VBox>

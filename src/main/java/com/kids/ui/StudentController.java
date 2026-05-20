@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import jdk.jshell.execution.Util;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
@@ -32,10 +33,11 @@ import java.util.ResourceBundle;
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 public class StudentController {
-
+    @Autowired
     private final StudentService studentService;
+    @Autowired
     private final UiService uiService;
-    private final ApplicationContext springContext;
+
     private final ResourceBundle resourceBundle;
 
     @FXML private TableView<Student> studentTable;

@@ -30,7 +30,7 @@ public class GardenSchoolApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        var fxmlLocation = getClass().getResource("/fxml/main.fxml");
+        var fxmlLocation = getClass().getResource("/fxml/main_dashboard.fxml");
         //var cssLocation = getClass().getResource("/css/garden-school.css");
 
         if (fxmlLocation == null) {
