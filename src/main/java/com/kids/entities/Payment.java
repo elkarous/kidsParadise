@@ -15,25 +15,26 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // ربط الدفعة بولي الأمر المسؤول عن الدفع
+    // 1. ربط الدفعة بولي الأمر المسؤول عن الدفع (علاقة متعدد لواحد)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id", nullable = false)
     private Parent parent;
+
+    // 2. 🌟 الربط الهيكلي الجديد: كل حركة دفع مرتبطة بكائن الشهر الشغال بالكامل
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "working_month_id", nullable = false)
+    private WorkingMonth workingMonth;
 
     // المبلغ الذي دفعه الولي فعلياً في هذه الحركة
     @Column(nullable = false)
     private double amountPaid;
 
-    // قيمة التخفيض التي طُبقت عليه عند الدفع (لحفظ التاريخ المالي حتى لو تغير عدد الأبناء لاحقاً)
+    // قيمة التخفيض التي طُبقت عليه عند الدفع
     private double discountApplied;
 
-    // تاريخ عملية الدفع الفعلي (مثلاً: اليوم 19-05-2026)
+    // تاريخ عملية الدفع الفعلي
     @Column(nullable = false)
     private LocalDate paymentDate;
-
-    // الشهر والسنة المستهدفة من الدفع (مثلاً: "2026-05" لشهريّة ماي)
-    @Column(nullable = false)
-    private String targetMonth; // صيغة YYYY-MM تسهل الفلترة جداً
 
     // طريقة الدفع (نقدًا، صك بنكي، تحويل...)
     private String paymentMethod;

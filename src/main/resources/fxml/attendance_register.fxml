@@ -1,43 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox spacing="15.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.kids.ui.AttendanceController" style="-fx-background-color: #f8f9fa;"
-      AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+<VBox prefHeight="650.0" prefWidth="1000.0" spacing="18.0"
+      style="-fx-background-color: #F8FAFC;"
+      stylesheets="@/styles/modern-ui.css"
+      xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.kids.ui.AttendanceController"
+      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
     <padding>
-        <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
+        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
     </padding>
+    <children>
 
-    <HBox spacing="15.0" alignment="CENTER_LEFT" style="-fx-background-color: white; -fx-padding: 12; -fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 1);">
+        <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: white; -fx-padding: 16; -fx-background-radius: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 12;">
+            <children>
 
-        <Label text="%attendance.level" style="-fx-font-weight: bold;"/>
-        <ComboBox fx:id="comboLevel" prefWidth="150.0" promptText="%attendance.chooseLevel"/>
+                <VBox spacing="5.0">
+                    <children>
+                        <Label styleClass="field-label" text="%attendance.level" />
+                        <ComboBox fx:id="comboLevel" prefHeight="40.0" prefWidth="160.0" promptText="%attendance.chooseLevel" styleClass="modern-combo-box" />
+                    </children>
+                </VBox>
 
-        <Label text="%attendance.class" style="-fx-font-weight: bold;"/>
-        <ComboBox fx:id="comboClass" prefWidth="180.0" promptText="%attendance.chooseClass"/>
+                <VBox spacing="5.0">
+                    <children>
+                        <Label styleClass="field-label" text="%attendance.class" />
+                        <ComboBox fx:id="comboClass" prefHeight="40.0" prefWidth="180.0" promptText="%attendance.chooseClass" styleClass="modern-combo-box" />
+                    </children>
+                </VBox>
 
-        <Label text="%attendance.date" style="-fx-font-weight: bold;"/>
-        <DatePicker fx:id="datePicker" prefWidth="150.0"/>
+                <VBox spacing="5.0">
+                    <children>
+                        <Label styleClass="field-label" text="%attendance.date" />
+                        <DatePicker fx:id="datePicker" prefHeight="40.0" prefWidth="170.0" styleClass="modern-text-field" />
+                    </children>
+                </VBox>
 
-        <Region HBox.hgrow="ALWAYS" />
+                <Region HBox.hgrow="ALWAYS" />
 
-        <Button fx:id="btnSaveAttendance" text="%btn.saveAttendance" onAction="#handleSaveAttendance"
-                style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-cursor: hand;"/>
-    </HBox>
+                <Button fx:id="btnSaveAttendance" mnemonicParsing="false" onAction="#handleSaveAttendance" prefHeight="40.0" prefWidth="160.0" styleClass="btn-primary" text="%btn.saveAttendance">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                    <HBox.margin>
+                        <Insets top="18.0" /> </HBox.margin>
+                </Button>
+            </children>
+        </HBox>
 
-    <TableView fx:id="attendanceTable" VBox.vgrow="ALWAYS" style="-fx-background-radius: 8;">
-        <columns>
-            <TableColumn fx:id="colStudentName" prefWidth="200.0" text="%student.name"/>
-            <TableColumn fx:id="colTeacherName" prefWidth="150.0" text="%class.teacher" style="-fx-alignment: CENTER;"/>
-            <TableColumn fx:id="colStatusAction" prefWidth="150.0" text="%attendance.status" style="-fx-alignment: CENTER;"/>
-            <TableColumn fx:id="colNotes" prefWidth="200.0" text="%payment.notes"/>
-        </columns>
-        <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-        </columnResizePolicy>
-    </TableView>
+        <TableView fx:id="attendanceTable" styleClass="modern-table" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colStudentName" prefWidth="250.0" text="%student.name" />
+
+                <TableColumn fx:id="colTeacherName" prefWidth="180.0" style="-fx-alignment: CENTER;" text="%class.teacher" />
+
+                <TableColumn fx:id="colStatusAction" prefWidth="180.0" style="-fx-alignment: CENTER;" text="%attendance.status" />
+
+                <TableColumn fx:id="colNotes" prefWidth="250.0" text="%payment.notes" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+    </children>
 </VBox>

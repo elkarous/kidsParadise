@@ -1,0 +1,250 @@
+/* تحسين شكل حقول الإدخال */
+.modern-text-field {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 8 12 8 12;
+    -fx-font-size: 13px;
+    -fx-text-fill: #1E293B;
+}
+.modern-text-field:focused {
+    -fx-border-color: #4F46E5;
+    -fx-border-width: 1.5;
+}
+
+/* شكل البطاقات الداخلية Container */
+.settings-card {
+    -fx-background-color: #F8FAFC;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 20;
+}
+
+/* تسميات الحقول */
+.field-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #475569;
+}
+
+/* الأزرار الاحترافية */
+.btn-primary {
+    -fx-background-color: #4F46E5;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+}
+.btn-primary:hover { -fx-background-color: #4338CA; }
+
+.btn-success {
+    -fx-background-color: #10B981;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+}
+.btn-success:hover { -fx-background-color: #059669; }
+
+/* تحسين شكل جدول البيانات المترهل الافتراضي */
+.modern-table {
+    -fx-background-color: transparent;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+.modern-table .column-header-background {
+    -fx-background-color: #F1F5F9;
+    -fx-padding: 5;
+}
+.modern-table .column-header {
+    -fx-background-color: transparent;
+    -fx-size: 40;
+}
+.modern-table .column-header .label {
+    -fx-text-fill: #475569;
+    -fx-font-weight: bold;
+}
+.modern-table .table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #F1F5F9 transparent;
+}
+.modern-table .table-row-cell:filled:selected {
+    -fx-background-color: #EEF2FF;
+    -fx-text-fill: #4F46E5;
+}
+
+/* تحسين نظام التبويبات */
+.modern-tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: #F8FAFC;
+}
+.modern-tab-pane .tab {
+    -fx-background-color: #E2E8F0;
+    -fx-background-radius: 6 6 0 0;
+    -fx-padding: 6 15;
+}
+.modern-tab-pane .tab:selected {
+    -fx-background-color: white;
+    -fx-border-color: #4F46E5 transparent transparent transparent;
+    -fx-border-width: 3 0 0 0;
+}
+.modern-tab-pane .tab .label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #64748B;
+}
+.modern-tab-pane .tab:selected .label {
+    -fx-text-fill: #4F46E5;
+}
+/* تأثير تمرير الفأرة على أسطر الجدول ليعطي انطباعاً تفاعلياً ممتازاً */
+.modern-table .table-row-cell:hover {
+    -fx-background-color: #F8FAFC;
+}
+/* أزرار القائمة الجانبية المودرن */
+.sidebar-link {
+    -fx-background-color: transparent;
+    -fx-text-fill: #94A3B8; /* رمادي ناعم غير مستهلك للعين */
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8;
+    -fx-padding: 0 15 0 15;
+    -fx-alignment: CENTER_RIGHT; /* محاذاة النص لليمين بما يتوافق مع العربية */
+}
+.sidebar-link:hover {
+    -fx-background-color: #1E293B; /* لون أغمق قليلاً عند التمرير */
+    -fx-text-fill: #F8FAFC;
+}
+.sidebar-link:focused {
+    -fx-background-color: #4F46E5; /* اللون البنفسجي الذكي عند اختيار القسم ونشاطه */
+    -fx-text-fill: white;
+}
+
+/* زر الإعدادات المخصص في الأسفل */
+.sidebar-link-settings {
+    -fx-background-color: transparent;
+    -fx-text-fill: #94A3B8;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8;
+    -fx-padding: 0 15 0 15;
+    -fx-alignment: CENTER_RIGHT;
+    -fx-border-color: #1E293B transparent transparent transparent; /* خط علوي خفيف يفصله عن باقي الأزرار */
+}
+.sidebar-link-settings:hover {
+    -fx-background-color: #1E293B;
+    -fx-text-fill: #F8FAFC;
+}
+
+/* زر تسجيل الخروج العصري */
+.btn-logout {
+    -fx-background-color: #FEE2E2;
+    -fx-text-fill: #EF4444;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-padding: 8 16;
+}
+.btn-logout:hover {
+    -fx-background-color: #FCA5A5;
+    -fx-text-fill: #991B1B;
+}
+/* تنسيق الـ ComboBox العصري */
+.modern-combo-box {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 4 8;
+    -fx-font-size: 13px;
+}
+.modern-combo-box:focused {
+    -fx-border-color: #4F46E5;
+}
+
+/* تنسيق الـ DatePicker العصري */
+.modern-date-picker {
+    -fx-background-color: transparent;
+}
+.modern-date-picker > .text-field {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 6 0 0 6;
+    -fx-background-radius: 6 0 0 6;
+    -fx-padding: 8 12;
+}
+.modern-date-picker > .arrow-button {
+    -fx-background-color: #F1F5F9;
+    -fx-background-radius: 0 6 6 0;
+    -fx-border-color: #E2E8F0;
+    -fx-border-width: 1 1 1 0;
+}
+/* إجبار التطبيق على ربط أيقونات الـ Glyphs بخط FontAwesome */
+.glyph-icon {
+    -fx-font-family: "FontAwesome";
+}
+/* الحقول العصرية وصناديق الاختيار */
+.modern-combo-box {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 4 8;
+    -fx-font-size: 13px;
+}
+.modern-combo-box:focused {
+    -fx-border-color: #4F46E5;
+}
+
+/* منقي التاريخ العصري */
+.modern-date-picker {
+    -fx-background-color: transparent;
+}
+.modern-date-picker > .text-field {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 6 0 0 6;
+    -fx-background-radius: 6 0 0 6;
+    -fx-padding: 8 12;
+}
+.modern-date-picker > .arrow-button {
+    -fx-background-color: #F1F5F9;
+    -fx-background-radius: 0 6 6 0;
+    -fx-border-color: #E2E8F0;
+    -fx-border-width: 1 1 1 0;
+}
+/* تنسيق شريط التبويبات بالكامل */
+.tab-pane {
+    -fx-background-color: #F8FAFC;
+}
+
+/* التنسيق الافتراضي لزر التبويب (غير المحدد) */
+.tab-pane .tab {
+    -fx-background-color: #F1F5F9; /* رمادي فاتح جداً وناعم يتماشى مع الـ SaaS */
+    -fx-background-radius: 8 8 0 0;
+    -fx-background-insets: 0;
+    -fx-padding: 8 16 8 16;
+    -fx-text-fill: #64748B;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+/* تنسيق التبويب عند تمرير الماوس فوقه (Hover) */
+.tab-pane .tab:hover {
+    -fx-background-color: #E2E8F0;
+    -fx-cursor: hand;
+}
+
+/* 🌟 التنسيق الساحر للتبويب النشط (المحدد حالياً) */
+.tab-pane .tab:selected {
+    -fx-background-color: #FFFFFF; /* خلفية بيضاء نقية تماماً */
+    -fx-text-fill: #4F46E5;        /* نص بلون النيلي الجذاب (Indigo) */
+    -fx-border-color: #4F46E5 transparent transparent transparent;
+    -fx-border-width: 3 0 0 0;     /* خط علوي أنيق يوضح التحديد */
+}
+
+/* إخفاء الخط السفلي الافتراضي المزعج للـ TabPane */
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: transparent;
+}

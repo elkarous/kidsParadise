@@ -10,6 +10,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 @Component
 public class SettingsController {
 
@@ -20,6 +23,7 @@ public class SettingsController {
     @FXML private TextField txtKindergartenName;
     @FXML private TextField txtKindergartenPhone;
     @FXML private TextField txtKindergartenAddress;
+    @FXML private ComboBox<String> comboLanguage;
 
     // عناصر إدارة السنوات الدراسية
     @FXML private TextField txtYearName;
@@ -32,14 +36,36 @@ public class SettingsController {
 
     @FXML
     public void initialize() {
-        // 1. تهيئة أعمدة جدول السنوات الدراسية
+        // ضبط القيمة الافتراضية لصندوق اللغة
+        comboLanguage.setValue("العربية");
+
+        // ربط الأعمدة (تم حذف colStatus بنجاح)
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colYearName.setCellValueFactory(new PropertyValueFactory<>("yearName"));
-        colStatus.setCellValueFactory(new PropertyValueFactory<>("active"));
 
         // 2. تحميل البيانات
         loadGeneralSettings();
         loadSchoolYearsData();
+    }
+
+
+    @FXML
+    private void handleLanguageChange() {
+        String selectedLanguage = comboLanguage.getValue();
+        Locale locale;
+
+        if ("English".equals(selectedLanguage)) {
+            locale = new Locale("en");
+        } else {
+            locale = new Locale("ar");
+        }
+
+        // 💡 هنا يتم تحميل ملف الخصائص الجديد لتغيير واجهة التطبيق بالكامل
+        ResourceBundle bundle = ResourceBundle.getBundle("messages.messages", locale);
+
+        // ملاحظة: لإعادة تحميل نصوص الواجهة الحالية ديناميكياً بدون إغلاق الشاشة،
+        // يفضل استدعاء الشاشة مجدداً عبر الـ FXMLLoader وتمرير الـ bundle الجديد له.
+        System.out.println("Language changed to: " + locale.getLanguage());
     }
 
     // تحميل الإعدادات الافتراضية للروضة

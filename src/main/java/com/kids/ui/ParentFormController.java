@@ -19,9 +19,7 @@ public class ParentFormController {
     @FXML private TextField txtFatherName;
     @FXML private TextField txtMotherName;
     @FXML private TextField txtPhone;
-    @FXML private TextField txtEmail;
     @FXML private Button btnSave;
-    @FXML private Button btnCancel;
 
     private Parent parent;
     private boolean saveClicked = false;
@@ -86,7 +84,6 @@ public class ParentFormController {
         txtFatherName.clear();
         txtMotherName.clear();
         txtPhone.clear();
-        txtEmail.clear();
     }
 
     /**

@@ -1,73 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<VBox spacing="15.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kids.ui.StudentFormController">
+<VBox prefWidth="420.0" spacing="18.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-border-radius: 12;"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.kids.ui.StudentFormController" stylesheets="@/styles/modern-ui.css">
+
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
     </padding>
+
     <children>
-        <!-- عنوان النموذج المترجم -->
-        <Label fx:id="lblFormTitle" textFill="#2c3e50">
-            <font><Font name="System Bold" size="18.0" /></font>
-        </Label>
-
-        <!-- حقل الاسم الأول -->
-        <VBox spacing="5.0">
+        <VBox spacing="5.0" style="-fx-padding: 0 0 10 0; -fx-border-color: #E2E8F0; -fx-border-width: 0 0 1 0;">
             <children>
-                <Label text="%firstName" />
-                <TextField fx:id="txtFirstName" />
+                <Label fx:id="lblFormTitle" style="-fx-font-weight: bold; -fx-font-size: 20px; -fx-text-fill: #0F172A;" text="إضافة / تعديل بيانات الطالب" />
             </children>
         </VBox>
 
-        <!-- حقل اللقب -->
-        <VBox spacing="5.0">
+        <VBox spacing="6.0">
             <children>
-                <Label text="%lastName" />
-                <TextField fx:id="txtLastName" />
+                <Label styleClass="field-label" text="%firstName" />
+                <TextField fx:id="txtFirstName" styleClass="modern-text-field" />
             </children>
         </VBox>
 
-        <!-- حقل تاريخ الميلاد الجديد -->
-        <VBox spacing="5.0">
+        <VBox spacing="6.0">
             <children>
-                <Label text="%birthDate" />
-                <DatePicker fx:id="dateBirthDate" maxWidth="1.7976931348623157E308" />
+                <Label styleClass="field-label" text="%lastName" />
+                <TextField fx:id="txtLastName" styleClass="modern-text-field" />
             </children>
         </VBox>
 
-        <!-- حقل المستوى التعليمي -->
-        <VBox spacing="5.0">
+        <VBox spacing="6.0">
             <children>
-                <Label text="%level" /> <!-- أو أي مفتاح تريد تخصيصه للمستوى -->
-                <ComboBox fx:id="comboLevel" maxWidth="1.7976931348623157E308" />
+                <Label styleClass="field-label" text="%birthDate" />
+                <DatePicker fx:id="dateBirthDate" maxWidth="1.7976931348623157E308" styleClass="modern-date-picker" />
             </children>
         </VBox>
 
-        <!-- حقل القسم الدراسي -->
-        <VBox spacing="5.0">
+        <VBox spacing="6.0">
             <children>
-                <Label text="%class" /> <!-- تأكد من تعديل المفتاح المناسب للقسم إذا وجد -->
-                <ComboBox fx:id="comboClass" maxWidth="1.7976931348623157E308" />
+                <Label styleClass="field-label" text="%level" />
+                <ComboBox fx:id="comboLevel" maxWidth="1.7976931348623157E308" styleClass="modern-combo-box" />
             </children>
         </VBox>
 
-        <!-- حقل ولي الأمر -->
-        <VBox spacing="5.0">
+        <VBox spacing="6.0">
             <children>
-                <Label text="%parent" /> <!-- غير المفتاح إلى مفتاح الولي في الـ properties لاحقاً إن أردت -->
-                <ComboBox fx:id="comboParent" maxWidth="1.7976931348623157E308" />
+                <Label styleClass="field-label" text="%class" />
+                <ComboBox fx:id="comboClass" maxWidth="1.7976931348623157E308" styleClass="modern-combo-box" />
             </children>
         </VBox>
 
-        <!-- زر الحفظ المترجم -->
-        <Button fx:id="btnSave" maxWidth="1.7976931348623157E308" onAction="#onSave" prefHeight="35.0" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold;" text="%btn.save" />
+        <VBox spacing="6.0">
+            <children>
+                <Label styleClass="field-label" text="%parent" />
+                <ComboBox fx:id="comboParent" maxWidth="1.7976931348623157E308" styleClass="modern-combo-box" />
+            </children>
+        </VBox>
+
+        <Button fx:id="btnSave" maxWidth="1.7976931348623157E308" onAction="#onSave" prefHeight="42.0" styleClass="btn-primary" text="%btn.save">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <VBox.margin>
+                <Insets top="10.0" />
+            </VBox.margin>
+        </Button>
     </children>
 </VBox>

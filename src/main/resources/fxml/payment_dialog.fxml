@@ -1,50 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox spacing="15.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.kids.ui.PaymentDialogController" style="-fx-background-color: white;"
-      prefWidth="420.0" prefHeight="400.0">
+<VBox prefWidth="460.0" spacing="18.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-border-radius: 12;"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.kids.ui.PaymentDialogController"
+      stylesheets="@/styles/modern-ui.css">
 
     <padding>
-        <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
+        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0"/>
     </padding>
 
-    <GridPane vgap="12.0" hgap="10.0" VBox.vgrow="ALWAYS">
-        <columnConstraints>
-            <ColumnConstraints minWidth="120.0" prefWidth="140.0" />
-            <ColumnConstraints hgrow="ALWAYS" minWidth="200.0" />
-        </columnConstraints>
+    <children>
+        <VBox spacing="5.0" style="-fx-padding: 0 0 10 0; -fx-border-color: #E2E8F0; -fx-border-width: 0 0 1 0;">
+            <children>
+                <Label style="-fx-font-weight: bold; -fx-font-size: 18px; -fx-text-fill: #0F172A;" text="💳 تأكيد واستخلاص الدفعة الشهرية" />
+            </children>
+        </VBox>
 
-        <Label text="%parent.fatherName" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
-        <Label fx:id="lblParentName" text="---" GridPane.rowIndex="0" GridPane.columnIndex="1" style="-fx-text-fill: #333;"/>
+        <GridPane hgap="15.0" vgap="14.0" VBox.vgrow="ALWAYS">
+            <columnConstraints>
+                <ColumnConstraints minWidth="130.0" prefWidth="140.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="200.0" />
+            </columnConstraints>
 
-        <Label text="%payment.targetMonth" GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
-        <Label fx:id="lblTargetMonth" text="---" GridPane.rowIndex="1" GridPane.columnIndex="1" style="-fx-font-weight: bold; -fx-text-fill: #007bff;"/>
+            <children>
+                <Label styleClass="field-label" text="%parent.fatherName" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <Label fx:id="lblParentName" style="-fx-text-fill: #1E293B; -fx-font-weight: bold; -fx-font-size: 14px;" text="---" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-        <Label text="%parent.childrenCount" GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
-        <Label fx:id="lblChildrenCount" text="0" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                <Label styleClass="field-label" text="%payment.targetMonth" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <Label fx:id="lblTargetMonth" style="-fx-font-weight: bold; -fx-text-fill: #4F46E5; -fx-font-size: 14px; -fx-background-color: #EEF2F6; -fx-padding: 3 10; -fx-background-radius: 4;" text="---" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-        <Label text="%payment.baseAmount" GridPane.rowIndex="3" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
-        <Label fx:id="lblBaseAmount" text="0.00" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                <Label styleClass="field-label" text="%parent.childrenCount" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <Label fx:id="lblChildrenCount" style="-fx-text-fill: #334155; -fx-font-weight: 600;" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-        <Label text="%payment.discount" GridPane.rowIndex="4" GridPane.columnIndex="0" style="-fx-font-weight: bold; -fx-text-fill: #dc3545;"/>
-        <Label fx:id="lblDiscount" text="0.00" GridPane.rowIndex="4" GridPane.columnIndex="1" style="-fx-text-fill: #dc3545; -fx-font-weight: bold;"/>
+                <Label styleClass="field-label" text="%payment.baseAmount" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <Label fx:id="lblBaseAmount" style="-fx-text-fill: #475569; -fx-font-weight: 600;" text="0.000" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-        <Label text="%payment.finalAmount" GridPane.rowIndex="5" GridPane.columnIndex="0" style="-fx-font-weight: bold; -fx-text-fill: #28a745; -fx-font-size: 14px;"/>
-        <Label fx:id="lblFinalAmount" text="0.00" GridPane.rowIndex="5" GridPane.columnIndex="1" style="-fx-text-fill: #28a745; -fx-font-weight: bold; -fx-font-size: 14px;"/>
+                <Label styleClass="field-label" text="%payment.discount" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <Label fx:id="lblDiscount" style="-fx-text-fill: #B91C1C; -fx-font-weight: bold; -fx-background-color: #FEF2F2; -fx-padding: 3 10; -fx-background-radius: 4;" text="0.000" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-        <Label text="%payment.method" GridPane.rowIndex="6" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
-        <ComboBox fx:id="comboMethod" GridPane.rowIndex="6" GridPane.columnIndex="1" prefWidth="200.0"/>
+                <Label styleClass="field-label" style="-fx-font-size: 14px;" text="%payment.finalAmount" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                <Label fx:id="lblFinalAmount" style="-fx-text-fill: #047857; -fx-font-weight: 800; -fx-font-size: 16px; -fx-background-color: #ECFDF5; -fx-padding: 4 12; -fx-background-radius: 5;" text="0.000" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
-        <Label text="%payment.notes" GridPane.rowIndex="7" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
-        <TextField fx:id="txtNotes" GridPane.rowIndex="7" GridPane.columnIndex="1" style="-fx-background-radius: 5;"/>
-    </GridPane>
+                <Label styleClass="field-label" text="%payment.method" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                <ComboBox fx:id="comboMethod" maxWidth="1.7976931348623157E308" prefHeight="38.0" styleClass="modern-combo-box" GridPane.columnIndex="1" GridPane.rowIndex="6" />
 
-    <HBox spacing="10.0" alignment="CENTER_RIGHT">
-        <Button text="%btn.cancel" onAction="#handleCancel" style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand;" prefWidth="90.0"/>
-        <Button fx:id="btnConfirm" text="%btn.confirmPayment" onAction="#handleConfirm" style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-background-radius: 5; -fx-font-weight: bold; -fx-cursor: hand;" prefWidth="120.0"/>
-    </HBox>
+                <Label styleClass="field-label" text="%payment.notes" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                <TextField fx:id="txtNotes" prefHeight="38.0" styleClass="modern-text-field" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            </children>
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+            </rowConstraints>
+        </GridPane>
+
+        <HBox alignment="CENTER_RIGHT" spacing="12.0" style="-fx-padding: 10 0 0 0;">
+            <children>
+                <Button mnemonicParsing="false" onAction="#handleCancel" prefHeight="40.0" prefWidth="100.0" styleClass="btn-logout" text="%btn.cancel">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
+                <Button fx:id="btnConfirm" mnemonicParsing="false" onAction="#handleConfirm" prefHeight="40.0" prefWidth="140.0" styleClass="btn-primary" text="%btn.confirmPayment">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
+            </children>
+        </HBox>
+    </children>
 </VBox>

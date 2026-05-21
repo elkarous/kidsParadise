@@ -1,102 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="600.0" minWidth="900.0"  xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kids.ui.MainDashboardController">
+<BorderPane minHeight="650.0" minWidth="1000.0" stylesheets="@/styles/modern-ui.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kids.ui.MainDashboardController">
 
-    <!-- الشريط العلوي (Top Bar) -->
     <top>
-        <HBox alignment="CENTER_LEFT" prefHeight="65.0" style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0; -fx-padding: 0 20 0 20;" BorderPane.alignment="CENTER">
-            <children>
-                <Label text="جنة الصغار" textFill="#2ecc71">
-                    <font>
-                        <Font name="System Bold" size="22.0" />
-                    </font>
-                </Label>
-                <Label text=" | لوحة التحكم الإدارية" textFill="#7f8c8d">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>
-                <HBox alignment="CENTER_RIGHT" spacing="15.0" HBox.hgrow="ALWAYS">
-                    <children>
-                        <!-- عرض السنة الدراسية المختارة من شاشة الدخول في الأعلى دائماً لتذكير المستخدم -->
-                        <Label fx:id="lblCurrentYear" style="-fx-background-color: #e8f8f0; -fx-background-radius: 15; -fx-padding: 5 15 5 15; -fx-text-fill: #2ecc71; -fx-font-weight: bold;" text="السنة الدراسية: 2025-2026" />
-                        <Button mnemonicParsing="false" onAction="#handleLogout" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 5;" text="تسجيل الخروج" />
-                    </children>
-                </HBox>
-            </children>
+        <HBox alignment="CENTER_LEFT" prefHeight="70.0" style="-fx-background-color: white; -fx-border-color: #E2E8F0; -fx-border-width: 0 0 1 0; -fx-padding: 0 30 0 30;" BorderPane.alignment="CENTER">
+            <Label style="-fx-font-weight: bold; -fx-font-size: 24px; -fx-text-fill: #10B981;" text="%main.title" />
+            <Label style="-fx-font-size: 14px; -fx-text-fill: #64748B;" text="%main.subtitle" />
+
+            <HBox alignment="CENTER_RIGHT" spacing="20.0" HBox.hgrow="ALWAYS">
+                <Label fx:id="lblCurrentYear" style="-fx-background-color: #ECFDF5; -fx-background-radius: 20; -fx-padding: 6 18; -fx-text-fill: #059669; -fx-font-weight: bold; -fx-font-size: 13px;" text="%main.current.year" />
+                <Button mnemonicParsing="false" onAction="#handleLogout" styleClass="btn-logout" text="%main.logout">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
+            </HBox>
         </HBox>
     </top>
 
-    <!-- الشريط الجانبي للتنقل (Sidebar) -->
     <left>
-        <VBox prefWidth="220.0" spacing="8.0" style="-fx-background-color: #2c3e50; -fx-padding: 20 10 20 10;" BorderPane.alignment="CENTER">
-            <children>
-                <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#showStudentsView" prefHeight="40.0" styleClass="sidebar-btn" text="👥 إدارة الطلاب" textFill="WHITE">
-                    <font><Font size="14.0" /></font>
-                    <cursor><Cursor fx:constant="HAND" /></cursor>
-                </Button>
+        <VBox prefHeight="580.0" prefWidth="169.0" spacing="6.0" style="-fx-background-color: #0F172A; -fx-padding: 25 15 25 15;" BorderPane.alignment="CENTER">
+            <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#showStudentsView" prefHeight="45.0" styleClass="sidebar-link" text="%menu.students">
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+            </Button>
 
-                <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#showParentsView" prefHeight="40.0" styleClass="sidebar-btn" text="👨‍👩‍👦 أولياء الأمور" textFill="WHITE">
-                    <font><Font size="14.0" /></font>
-                    <cursor><Cursor fx:constant="HAND" /></cursor>
-                </Button>
-                <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#showPaymentsView" prefHeight="40.0" styleClass="sidebar-btn" text="%menu.payments"  textFill="WHITE">
-                    <font><Font size="14.0" /></font>
-                    <graphic>
-                        <de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView glyphName="MONEY" glyphSize="16" style="-fx-fill: white;"/>
-                    </graphic>
-                    <cursor><Cursor fx:constant="HAND" /></cursor>
-                </Button>
-                <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#showSessionsView" prefHeight="40.0" styleClass="sidebar-btn" text="📅 جدول الحصص" textFill="WHITE">
-                    <font><Font size="14.0" /></font>
-                    <cursor><Cursor fx:constant="HAND" /></cursor>
-                </Button>
+            <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#showParentsView" prefHeight="45.0" styleClass="sidebar-link" text="%menu.parents">
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+            </Button>
 
-                <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#showAttendanceView" prefHeight="40.0" styleClass="sidebar-btn" text="📝 دفتر الحضور والغياب" textFill="WHITE">
-                    <font><Font size="14.0" /></font>
-                    <cursor><Cursor fx:constant="HAND" /></cursor>
-                </Button>
+            <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#showPaymentsView" prefHeight="45.0" styleClass="sidebar-link" text="%menu.payments">
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+            </Button>
 
-                <VBox alignment="BOTTOM_CENTER" VBox.vgrow="ALWAYS">
-                    <children>
-                        <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#showSettingsView" prefHeight="40.0" styleClass="sidebar-btn" text="⚙️ الإعدادات العامة" textFill="WHITE">
-                            <font><Font size="14.0" /></font>
-                            <cursor><Cursor fx:constant="HAND" /></cursor>
-                        </Button>
-                    </children>
-                </VBox>
-            </children>
+            <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#showSessionsView" prefHeight="45.0" styleClass="sidebar-link" text="%menu.sessions">
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+            </Button>
+
+            <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#showAttendanceView" prefHeight="45.0" styleClass="sidebar-link" text="%menu.attendance">
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+            </Button>
+
+            <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#showTeachersView" prefHeight="45.0" styleClass="sidebar-link" text="%nav.teachers">
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+            </Button>
+
+            <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#showEmployeView" prefHeight="45.0" styleClass="sidebar-link" text="%nav.teachers">
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+            </Button>
+
+            <VBox alignment="BOTTOM_CENTER" VBox.vgrow="ALWAYS">
+                <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#showSettingsView" prefHeight="45.0" styleClass="sidebar-link-settings" text="%menu.settings">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
+            </VBox>
         </VBox>
     </left>
 
-    <!-- المحتوى المركزي المتغير ديناميكياً -->
     <center>
-        <VBox fx:id="contentArea" alignment="CENTER" style="-fx-background-color: #f8f9fa; -fx-padding: 30;" BorderPane.alignment="CENTER">
-            <children>
-                <!-- شاشة الترحيب الافتراضية عند فتح اللوحة لأول مرة -->
-                <Label text="مرحباً بك في نظام جنة الصغار" textFill="#34495e">
-                    <font>
-                        <Font name="System Bold" size="24.0" />
-                    </font>
-                </Label>
-                <Label text="الرجاء اختيار قسم من القائمة الجانبية للبدء بالعمل" textFill="#7f8c8d">
-                    <VBox.margin>
-                        <Insets top="10.0" />
-                    </VBox.margin>
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>
-            </children>
+        <VBox fx:id="contentArea" alignment="CENTER" style="-fx-background-color: #F8FAFC; -fx-padding: 40;" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" spacing="12" style="-fx-background-color: white; -fx-padding: 45; -fx-background-radius: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 12; -fx-max-width: 600;">
+                <Label style="-fx-font-weight: bold; -fx-font-size: 26px; -fx-text-fill: #1E293B;" text="%welcome.title" />
+                <Label style="-fx-font-size: 14px; -fx-text-fill: #64748B; -fx-text-alignment: center;" text="%welcome.subtitle" />
+            </VBox>
         </VBox>
     </center>
 </BorderPane>

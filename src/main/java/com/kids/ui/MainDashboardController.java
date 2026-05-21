@@ -90,6 +90,15 @@ public class MainDashboardController {
         setCenterView("/fxml/attendance_register.fxml");
     }
     @FXML
+    private void showTeachersView() {
+        setCenterView("/fxml/teacher_management.fxml");
+    }
+
+    @FXML
+    private void showEmployeView() {
+        setCenterView("/fxml/admin_manager.fxml");
+    }
+    @FXML
     private void showPaymentsView() {
         setCenterView("/fxml/payments_manager.fxml"); // المسار الفعلي لملف واجهة المدفوعات الرئيسي
     }

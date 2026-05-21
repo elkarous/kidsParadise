@@ -9,6 +9,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -126,17 +127,7 @@ public class ParentController {
     }
 
     private void setupActionHeaderAndCells() {
-        // 1. زر الإضافة العلوي في الهيدر
-        Button btnAdd = new Button();
-        FontAwesomeIconView iconAdd = new FontAwesomeIconView(FontAwesomeIcon.PLUS);
-        iconAdd.setGlyphSize(14);
-        iconAdd.setStyle("-fx-fill: white;");
-        btnAdd.setGraphic(iconAdd);
-        btnAdd.getStyleClass().add("button-add"); // أو ستايل يدوي
-        btnAdd.setStyle("-fx-background-color: #28a745; -fx-background-radius: 5; -fx-cursor: hand;");
-        btnAdd.setPrefWidth(50);
 
-        btnAdd.setOnAction(e -> openParentPopup(new Parent(), btnAdd.getScene().getWindow()));
         // إضافة عمود لعدد الأبناء المسجلين
         colStudentCount.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(
                 String.valueOf(cellData.getValue().getChildren() != null ? cellData.getValue().getChildren().size() : 0)
@@ -147,7 +138,6 @@ public class ParentController {
             double finalFees = tuitionService.calculateMonthlyFeesForParent(cellData.getValue());
             return new javafx.beans.property.SimpleStringProperty(finalFees + " د.ت");
         });
-        colAction.setGraphic(btnAdd);
 
         // 2. أزرار الحذف داخل الخلايا
         colAction.setCellFactory(param -> new TableCell<>() {
@@ -194,5 +184,10 @@ public class ParentController {
                 }
             }
         });
+    }
+
+    public void openParentPopup() {
+        Parent parent = new Parent();
+        this.openParentPopup(parent, parentTable.getScene().getWindow());
     }
 }

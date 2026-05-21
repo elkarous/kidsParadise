@@ -5,6 +5,7 @@ import com.kids.services.TeacherService;
 import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.collections.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.NodeOrientation;
@@ -38,8 +39,6 @@ public class TeacherManagementController implements Initializable {
 
     // ── FXML injections ───────────────────────────────────────────────────────
 
-    @FXML private VBox               rootPane;
-    @FXML private Label              lblTitle;
     @FXML private TextField          searchField;
     @FXML private TableView<Teacher> teacherTable;
     @FXML private TableColumn<Teacher, String>  colName;
@@ -82,10 +81,6 @@ public class TeacherManagementController implements Initializable {
     }
 
     private void applyRtlIfArabic() {
-        if (bundle.getLocale().getLanguage().equals("ar")) {
-            rootPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-        }
-        lblTitle.setText(bundle.getString("nav.teachers"));
     }
 
     // ── Table Setup ───────────────────────────────────────────────────────────
@@ -273,5 +268,15 @@ public class TeacherManagementController implements Initializable {
             Alert alert = new Alert(type, message, ButtonType.OK);
             alert.showAndWait();
         });
+    }
+
+    public void handleDeleteTeacher(ActionEvent actionEvent) {
+
+    }
+
+    public void handleUpdateTeacher(ActionEvent actionEvent) {
+    }
+
+    public void handleAddTeacher(ActionEvent actionEvent) {
     }
 }
