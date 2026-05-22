@@ -26,7 +26,7 @@
          stylesheets="@/styles/modern-ui.css"
          xmlns="http://javafx.com/javafx/21"
          xmlns:fx="http://javafx.com/fxml/1"
-         fx:controller="com.kids.ui.TeacherManagementController">
+         fx:controller="com.kids.ui.StuffManagementController">
     <Tab text="%nav.teachers">
         <AnchorPane>
             <VBox spacing="18.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"

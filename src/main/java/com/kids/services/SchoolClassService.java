@@ -16,5 +16,5 @@ public class SchoolClassService {
     public List<SchoolClass> findAll() { return classRepository.findAll(); }
     public List<SchoolClass> findByLevelId(Long levelId) { return classRepository.findByLevelId(levelId); }
     public SchoolClass save(SchoolClass schoolClass) { return classRepository.save(schoolClass); }
-    public void deleteById(Long id) { classRepository.deleteById(id); }
+    public void deleteById(Long id) { classRepository.forceDeleteById(id); }
 }

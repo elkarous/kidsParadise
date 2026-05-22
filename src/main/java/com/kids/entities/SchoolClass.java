@@ -18,7 +18,7 @@ public class SchoolClass {
     @ToString.Exclude // This prevents the infinite loop
     private Level level;
 
-    @ManyToOne(fetch = FetchType.EAGER) // 🌟 تأكد أنها ManyToOne وليست OneToMany
+    @ManyToOne(fetch = FetchType.EAGER ) // 🌟 تأكد أنها ManyToOne وليست OneToMany
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 

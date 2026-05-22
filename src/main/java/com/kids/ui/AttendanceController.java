@@ -1,20 +1,19 @@
 package com.kids.ui;
 
 
-import com.kids.entities.Attendance;
-import com.kids.entities.AttendanceStatus;
+import com.kids.entities.*;
 
-import com.kids.entities.Level;
-import com.kids.entities.SchoolClass;
 import com.kids.services.AttendanceService;
 import com.kids.services.LevelService; // افترض وجوده لجلب الفضاءات
 import com.kids.services.SchoolClassService;
+import com.kids.services.UiService;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.StringConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -52,14 +51,42 @@ public class AttendanceController {
     }
 
     private void setupComboBoxes() {
-        // 1. ملء فضاءات الروضة (Levels)
-        comboLevel.getItems().setAll(levelService.findAll());
+        StringConverter<Level> levelConverter = new StringConverter<>() {
+            @Override
+            public String toString(Level l) {
+                return l == null ? "" : l.getLevelName();
+            }
+
+            @Override
+            public Level fromString(String s) {
+                return null;
+            }
+        };
+
+        UiService.makeSearchable(
+                comboLevel,
+                levelService.findAll(),
+                levelConverter,
+                Level::getLevelName,
+                (level, text) -> level.getLevelName().toLowerCase().contains(text)
+        );
 
         // 2. تصفية ديناميكية: عند اختيار فضاء، يتم شحن المجموعات التابعة له فقط (صباحي/مسائي)
         comboLevel.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
-                comboClass.getItems().setAll(classService.findByLevelId(newVal.getId()));
-                comboClass.getSelectionModel().clearSelection();
+                StringConverter<SchoolClass> classConverter = new StringConverter<>() {
+                    @Override public String toString(SchoolClass c) { return c == null ? "" : c.getClassName(); }
+                    @Override public SchoolClass fromString(String s) { return null; }
+                };
+
+                // بناء البحث الذكي للصفوف بناءً على المستوى المختار
+                UiService.makeSearchable(
+                        comboClass,
+                        new java.util.ArrayList<>(newVal.getClasses()), // تمرير نسخة مستقلة لتجنب مشاكل الهيدرا والـ Lazy Loading
+                        classConverter,
+                        SchoolClass::getClassName,
+                        (cl, text) -> cl.getClassName().toLowerCase().contains(text)
+                );
                 attendanceDataList.clear();
             }
         });

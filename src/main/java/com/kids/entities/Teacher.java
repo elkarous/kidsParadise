@@ -60,20 +60,11 @@ public class Teacher {
 
     @Enumerated(EnumType.STRING)
     @Builder.Default
-    private TeacherStatus status = TeacherStatus.ACTIVE;
+    private Status status = Status.ACTIVE;
 
     @OneToMany(mappedBy = "teacher", fetch = FetchType.LAZY)
     private List<SchoolClass> schoolClasses;
     // ── Enums ────────────────────────────────────────────────────────────────
 
-    public enum SalaryType {
-        FIXED_MONTHLY,   // ثابت شهري
-        PER_SESSION      // بالجلسة
-    }
 
-    public enum TeacherStatus {
-        ACTIVE,   // نشط
-        INACTIVE, // غير نشط
-        ON_LEAVE  // في إجازة
-    }
 }

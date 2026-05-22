@@ -71,7 +71,7 @@ public class FinancialReportingService {
     public record TeacherSalaryLine(
         Long       teacherId,
         String     teacherName,
-        Teacher.SalaryType salaryType,
+        SalaryType salaryType,
         BigDecimal grossSalary,
         BigDecimal amountPaid,
         BigDecimal pendingAmount,
@@ -133,7 +133,7 @@ public class FinancialReportingService {
     public TeacherPayrollReport generateTeacherReport(YearMonth month) {
         log.info("Generating teacher payroll report for {}", month);
 
-        List<Teacher> activeTeachers = teacherRepo.findByStatus(Teacher.TeacherStatus.ACTIVE);
+        List<Teacher> activeTeachers = teacherRepo.findByStatus(Status.ACTIVE);
 
         List<TeacherSalaryLine> lines = activeTeachers.stream()
             .map(t -> buildSalaryLine(t, month))

@@ -6,12 +6,14 @@ import com.kids.entities.Teacher;
 import com.kids.services.LevelService;
 import com.kids.services.SchoolClassService;
 import com.kids.services.TeacherService; // افترض وجوده لشحن كومبو المعلمين
+import com.kids.services.UiService;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.StringConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -61,6 +63,45 @@ public class SpacesManagementController {
                 comboTeacherFilter.setValue(newVal.getTeacher());
             }
         });
+        StringConverter<Level> levelConverter = new StringConverter<>() {
+            @Override
+            public String toString(Level l) {
+                return l == null ? "" : l.getLevelName();
+            }
+
+            @Override
+            public Level fromString(String s) {
+                return null;
+            }
+        };
+
+        StringConverter<Teacher> teacherConverter = new StringConverter<>() {
+            @Override
+            public String toString(Teacher t) {
+                return t == null ? "" : t.getName();
+            }
+
+            @Override
+            public Teacher fromString(String s) {
+                return null;
+            }
+        };
+
+        UiService.makeSearchable(
+                comboLevelFilter,
+                levelService.findAll(),
+                levelConverter,
+                Level::getLevelName,
+                (level, text) -> level.getLevelName().toLowerCase().contains(text)
+        );
+
+        UiService.makeSearchable(
+                comboTeacherFilter,
+                teacherService.findAll(),
+                teacherConverter,
+                Teacher::getName,
+                (teacher, text) -> teacher.getName().toLowerCase().contains(text)
+        );
     }
 
     private void setupTables() {
@@ -78,12 +119,9 @@ public class SpacesManagementController {
     private void loadData() {
         levelList.setAll(levelService.findAll());
         levelTable.setItems(levelList);
-        comboLevelFilter.getItems().setAll(levelList);
-
         classList.setAll(classService.findAll());
         classTable.setItems(classList);
 
-        comboTeacherFilter.getItems().setAll(teacherService.findAll());
     }
 
     // ========== عمليات إدارة الفضاءات (Levels) ==========

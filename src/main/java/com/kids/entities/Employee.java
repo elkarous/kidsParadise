@@ -10,10 +10,10 @@ import java.time.LocalDate;
  * Supports standard administrative roles and tracking.
  */
 @Entity
-@Table(name = "administrators")
+@Table(name = "employees")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 @ToString // لومبوك سيقوم بإنشاء دالة toString تلقائياً
-public class Administrator {
+public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,6 +43,11 @@ public class Administrator {
     @Enumerated(EnumType.STRING)
     @Builder.Default
     private AdminStatus status = AdminStatus.ACTIVE;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private SalaryType salaryType;
+
+
 
     // ── Enums ────────────────────────────────────────────────────────────────
 

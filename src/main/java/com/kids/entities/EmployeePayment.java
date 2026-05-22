@@ -1,5 +1,6 @@
 package com.kids.entities;
 
+
 import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
@@ -13,17 +14,17 @@ import java.time.YearMonth;
  * (advances) and a final settlement, all linked to the same coveredMonth.
  */
 @Entity
-@Table(name = "teacher_payments")
+@Table(name = "employee_payments")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
-public class TeacherPayment {
+public class EmployeePayment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "teacher_id")
-    private Teacher teacher;
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 
     /** The calendar month this payment covers — stored as "YYYY-MM" */
     @Column(nullable = false, length = 7)
@@ -68,3 +69,4 @@ public class TeacherPayment {
 
 
 }
+

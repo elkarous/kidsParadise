@@ -91,12 +91,17 @@ public class MainDashboardController {
     }
     @FXML
     private void showTeachersView() {
-        setCenterView("/fxml/teacher_management.fxml");
+        setCenterView("/fxml/human_resources.fxml");
     }
 
     @FXML
-    private void showEmployeView() {
-        setCenterView("/fxml/admin_manager.fxml");
+    private void showEmployeeView() {
+        setCenterView("/fxml/employee_attendance.fxml");
+    }
+
+    @FXML
+    private void showPayRollView() {
+        setCenterView("/fxml/payroll_management.fxml");
     }
     @FXML
     private void showPaymentsView() {

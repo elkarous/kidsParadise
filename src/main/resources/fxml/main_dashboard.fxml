@@ -57,13 +57,20 @@
                 </cursor>
             </Button>
 
-            <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#showTeachersView" prefHeight="45.0" styleClass="sidebar-link" text="%nav.teachers">
+            <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#showTeachersView" prefHeight="45.0" styleClass="sidebar-link" text="%nav.employees">
                 <cursor>
                     <Cursor fx:constant="HAND" />
                 </cursor>
             </Button>
 
-            <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#showEmployeView" prefHeight="45.0" styleClass="sidebar-link" text="%nav.teachers">
+            <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#showEmployeeView" prefHeight="45.0" styleClass="sidebar-link" text="%nav.admins">
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+            </Button>
+
+
+            <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#showPayRollView" prefHeight="45.0" styleClass="sidebar-link" text="%nav.admins">
                 <cursor>
                     <Cursor fx:constant="HAND" />
                 </cursor>

@@ -134,7 +134,7 @@ public class TeacherService {
     public TeacherPayment recordPayment(Long teacherId,
                                         YearMonth yearMonth,
                                         BigDecimal amountToPay,
-                                        TeacherPayment.PaymentMethod method,
+                                        PaymentMethod method,
                                         String reference) {
 
         Teacher teacher = teacherRepo.findById(teacherId)
@@ -152,10 +152,10 @@ public class TeacherService {
 
         // Determine if this is a full settlement or an advance
         BigDecimal afterThisPayment = pending.subtract(amountToPay);
-        TeacherPayment.PaymentStatus status =
+        PaymentStatus status =
             afterThisPayment.compareTo(BigDecimal.ZERO) == 0
-                ? TeacherPayment.PaymentStatus.PAID
-                : TeacherPayment.PaymentStatus.ADVANCE;
+                ? PaymentStatus.PAID
+                : PaymentStatus.ADVANCE;
 
         TeacherPayment payment = TeacherPayment.builder()
             .teacher(teacher)
@@ -177,9 +177,17 @@ public class TeacherService {
     }
 
     public List<Teacher> findAllActive() {
-        return this.teacherRepo.findByStatus(Teacher.TeacherStatus.ACTIVE);
+        return this.teacherRepo.findByStatus(Status.ACTIVE);
     }
     public List<Teacher> findAll() {
         return this.teacherRepo.findAll();
+    }
+
+    public void save(Teacher currentStaff) {
+        this.teacherRepo.save(currentStaff);
+    }
+
+    public void deleteById(Long id) {
+        this.teacherRepo.deleteById(id);
     }
 }

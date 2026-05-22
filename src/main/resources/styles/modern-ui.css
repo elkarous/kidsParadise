@@ -76,6 +76,7 @@
 .modern-table .table-row-cell:filled:selected {
     -fx-background-color: #EEF2FF;
     -fx-text-fill: #4F46E5;
+   -fx-color: #4F46E5;
 }
 
 /* تحسين نظام التبويبات */
