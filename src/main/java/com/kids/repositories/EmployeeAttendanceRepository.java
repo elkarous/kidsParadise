@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Repository
 public interface EmployeeAttendanceRepository extends JpaRepository<EmployeeAttendance, Long> {
@@ -31,4 +32,7 @@ public interface EmployeeAttendanceRepository extends JpaRepository<EmployeeAtte
             @Param("from") LocalDate from,
             @Param("to") LocalDate to
     );
+
+
+    Optional<EmployeeAttendance> findByEmployeeIdAndAndAttendanceDate(Long id,LocalDate date );
 }

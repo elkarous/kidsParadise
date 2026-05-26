@@ -20,4 +20,7 @@ public interface TeacherPaymentRepository extends JpaRepository<TeacherPayment, 
     Optional<BigDecimal>  sumPaymentsForMonth(String string);
     @Query("SELECT p.netAmount FROM TeacherPayment p WHERE p.teacher.id = :teacherId AND p.paymentStatus = 'PENDING'")
     Optional<BigDecimal> sumOutstandingForMonth(String string);
+
+    @Query("SELECT COALESCE(SUM(p.netAmount), 0) FROM TeacherPayment p WHERE p.teacher.id = :teacherId AND p.workingMonth.id = :workingMonthId")
+    BigDecimal sumPaidAmountByMonth(@Param("teacherId") Long teacherId, @Param("workingMonthId") Long workingMonthId);
 }

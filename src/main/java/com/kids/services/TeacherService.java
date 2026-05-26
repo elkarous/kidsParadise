@@ -11,23 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.YearMonth;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Core service for Teacher management.
-
- * ── Payroll Philosophy ──────────────────────────────────────────────────────
-
- *  FIXED_MONTHLY:
- *    netSalary = baseSalary
- *              - (unexcusedAbsences × absencePenaltyPerDay)
- *              - advancesAlreadyPaid
- *  PER_SESSION:
- *    netSalary = sessionsAttended × sessionRate
- *              - advancesAlreadyPaid
- * The "pending salary" is what is still owed after any advance payments.
- * ────────────────────────────────────────────────────────────────────────────
  */
 @Slf4j
 @Service
@@ -40,10 +30,6 @@ public class TeacherService {
 
     // ── Attendance ───────────────────────────────────────────────────────────
 
-    /**
-     * Mark or update a teacher's attendance for today.
-     * Calling this again for the same day will update the existing record.
-     */
     @Transactional
     public TeacherAttendance markAttendance(Long teacherId,
                                             LocalDate date,
@@ -52,11 +38,11 @@ public class TeacherService {
                                             String notes) {
 
         Teacher teacher = teacherRepo.findById(teacherId)
-            .orElseThrow(() -> new IllegalArgumentException("Teacher not found: " + teacherId));
+                .orElseThrow(() -> new IllegalArgumentException("Teacher not found: " + teacherId));
 
         TeacherAttendance record = attendanceRepo
-            .findByTeacherIdAndAttendanceDate(teacherId, date)
-            .orElse(TeacherAttendance.builder().teacher(teacher).attendanceDate(date).build());
+                .findByTeacherIdAndAttendanceDate(teacherId, date)
+                .orElse(TeacherAttendance.builder().teacher(teacher).attendanceDate(date).build());
 
         record.setStatus(status);
         record.setSessionsCount(sessionsCount);
@@ -70,32 +56,29 @@ public class TeacherService {
     // ── Salary Calculation ───────────────────────────────────────────────────
 
     /**
-     * Calculate the gross salary for a teacher for a specific month,
-     * based on attendance data and their salary type.
-     *
-     * @param teacherId    teacher's ID
-     * @param yearMonth    the month to calculate (e.g. YearMonth.of(2025, 9))
-     * @return             gross calculated salary (before deducting advances)
+     * 📊 حساب الراتب الإجمالي للأستاذ بناءً على بيانات الشهر الدراسي النشط WorkingMonth
      */
-    public BigDecimal calculateGrossSalary(Long teacherId, YearMonth yearMonth) {
+    public BigDecimal calculateGrossSalary(Long teacherId, WorkingMonth workingMonth) {
+        if (workingMonth == null) {
+            throw new IllegalArgumentException("Working month cannot be null");
+        }
 
         Teacher teacher = teacherRepo.findById(teacherId)
-            .orElseThrow(() -> new IllegalArgumentException("Teacher not found: " + teacherId));
+                .orElseThrow(() -> new IllegalArgumentException("Teacher not found: " + teacherId));
 
+        // تحويل أرقام الشهر الدراسي إلى تواريخ محلية لمعرفة أيام العمل والحصص
+        YearMonth yearMonth = YearMonth.of(workingMonth.getYear(), workingMonth.getMonthNumber());
         LocalDate from = yearMonth.atDay(1);
         LocalDate to   = yearMonth.atEndOfMonth();
 
         return switch (teacher.getSalaryType()) {
-
             case FIXED_MONTHLY -> {
                 long absences = attendanceRepo.countAbsencesByMonth(teacherId, from, to);
                 BigDecimal penalty = teacher.getAbsencePenaltyPerDay()
-                                            .multiply(BigDecimal.valueOf(absences));
+                        .multiply(BigDecimal.valueOf(absences));
                 BigDecimal gross = teacher.getBaseSalary().subtract(penalty);
-                // Floor at zero — never a negative salary
                 yield gross.compareTo(BigDecimal.ZERO) < 0 ? BigDecimal.ZERO : gross;
             }
-
             case PER_SESSION -> {
                 long sessions = attendanceRepo.sumSessionsByMonth(teacherId, from, to);
                 yield teacher.getBaseSalary().multiply(BigDecimal.valueOf(sessions));
@@ -104,81 +87,83 @@ public class TeacherService {
     }
 
     /**
-     * Calculate how much salary is still PENDING (owed but not yet paid)
-     * for a teacher in a given month.
-     * pendingSalary = grossSalary - advancesAndPaymentsAlreadyMade
+     * 💰 حساب المبلغ المتبقي المستحق للأستاذ بعد خصم كافة التسبيقات السابقة للشهر الدراسي
      */
-    public BigDecimal calculatePendingSalary(Long teacherId, YearMonth yearMonth) {
-        BigDecimal gross    = calculateGrossSalary(teacherId, yearMonth);
-        BigDecimal alreadyPaid = BigDecimal.ZERO;
-        BigDecimal pending  = gross.subtract(alreadyPaid);
+    public BigDecimal calculatePendingSalary(Long teacherId, WorkingMonth workingMonth) {
+        if (workingMonth == null) return BigDecimal.ZERO;
+
+        BigDecimal gross = calculateGrossSalary(teacherId, workingMonth);
+
+        // الاستعلام الفعلي من قاعدة البيانات باستخدام المعرف الفريد للـ WorkingMonth
+        BigDecimal alreadyPaid = paymentRepo.sumPaidAmountByMonth(teacherId, workingMonth.getId());
+        if (alreadyPaid == null) {
+            alreadyPaid = BigDecimal.ZERO;
+        }
+
+        BigDecimal pending = gross.subtract(alreadyPaid);
         return pending.compareTo(BigDecimal.ZERO) < 0 ? BigDecimal.ZERO : pending;
     }
 
     // ── Payment Recording ────────────────────────────────────────────────────
 
     /**
-     * Record a salary payment for a teacher.
-     * ⚠️  @Transactional ensures that both the payment record insertion
-     *     AND any status updates happen atomically. If either fails,
-     *     the entire transaction rolls back — no phantom payments.
-     *
-     * @param teacherId     teacher's ID
-     * @param yearMonth     the month being paid
-     * @param amountToPay   the net amount being paid now (may be partial advance)
-     * @param method        payment method (cash, bank transfer, etc.)
-     * @param reference     optional bank/receipt reference
-     * @return              the saved TeacherPayment record
+     * 💳 تسجيل حركة صرف مستحقات ماليّة للأستاذ وربطها بهيكل الشهر الدراسي
      */
     @Transactional
     public TeacherPayment recordPayment(Long teacherId,
-                                        YearMonth yearMonth,
+                                        WorkingMonth workingMonth,
                                         BigDecimal amountToPay,
                                         PaymentMethod method,
                                         String reference) {
 
-        Teacher teacher = teacherRepo.findById(teacherId)
-            .orElseThrow(() -> new IllegalArgumentException("Teacher not found: " + teacherId));
+        if (workingMonth == null) {
+            throw new IllegalArgumentException("Working month cannot be null");
+        }
 
-        BigDecimal gross   = calculateGrossSalary(teacherId, yearMonth);
-        BigDecimal pending = calculatePendingSalary(teacherId, yearMonth);
+        Teacher teacher = teacherRepo.findById(teacherId)
+                .orElseThrow(() -> new IllegalArgumentException("Teacher not found: " + teacherId));
+
+        BigDecimal gross   = calculateGrossSalary(teacherId, workingMonth);
+        BigDecimal pending = calculatePendingSalary(teacherId, workingMonth);
 
         if (amountToPay.compareTo(pending) > 0) {
             throw new IllegalStateException(
-                "Payment amount %s exceeds pending salary %s for month %s"
-                    .formatted(amountToPay, pending, yearMonth)
+                    "Payment amount %s exceeds pending salary %s for month %s"
+                            .formatted(amountToPay, pending, workingMonth.getMonthName())
             );
         }
 
-        // Determine if this is a full settlement or an advance
         BigDecimal afterThisPayment = pending.subtract(amountToPay);
-        PaymentStatus status =
-            afterThisPayment.compareTo(BigDecimal.ZERO) == 0
+        PaymentStatus status = afterThisPayment.compareTo(BigDecimal.ZERO) == 0
                 ? PaymentStatus.PAID
                 : PaymentStatus.ADVANCE;
 
+        // 🟢 بناء كائن حركة الدفع وربطه بـ workingMonth بشكل صحيح بالكامل
         TeacherPayment payment = TeacherPayment.builder()
-            .teacher(teacher)
-            .coveredMonth(yearMonth.toString())
-            .grossAmount(gross)
-            .deductions(gross.subtract(pending))   // total deductions so far
-            .netAmount(amountToPay)
-            .paymentDate(LocalDate.now())
-            .paymentMethod(method)
-            .paymentStatus(status)
-            .reference(reference)
-            .build();
+                .teacher(teacher)
+                .workingMonth(workingMonth)
+                .grossAmount(gross)
+                .deductions(gross.subtract(pending)) // مجموع الاقتطاعات أو الدفوعات السابقة حتى اللحظة
+                .netAmount(amountToPay)
+                .paymentDate(LocalDate.now())
+                .paymentMethod(method)
+                .paymentStatus(status)
+                .reference(reference)
+                .build();
 
         TeacherPayment saved = paymentRepo.save(payment);
         log.info("Payment recorded: teacher={} month={} amount={} status={}",
-            teacher.getName(), yearMonth, amountToPay, status);
+                teacher.getName(), workingMonth.getMonthName(), amountToPay, status);
 
         return saved;
     }
 
+    // ── المساعدات وبقية الدوال المستقرة ──────────────────────────────────────────
+
     public List<Teacher> findAllActive() {
         return this.teacherRepo.findByStatus(Status.ACTIVE);
     }
+
     public List<Teacher> findAll() {
         return this.teacherRepo.findAll();
     }
@@ -189,5 +174,26 @@ public class TeacherService {
 
     public void deleteById(Long id) {
         this.teacherRepo.deleteById(id);
+    }
+
+    public Optional<TeacherAttendance> findAttendanceByDateAndId(Long id, LocalDate selectedDate) {
+        return this.attendanceRepo.findByTeacherIdAndAttendanceDate(id, selectedDate);
+    }
+
+    @Transactional
+    public void saveAttendance(Teacher teacher, LocalDate date, AttendanceStatus status, LocalTime checkIn, LocalTime checkOut, String notes) {
+        TeacherAttendance attendance = attendanceRepo
+                .findByTeacherIdAndAttendanceDate(teacher.getId(), date)
+                .orElseGet(() -> TeacherAttendance.builder()
+                        .teacher(teacher)
+                        .attendanceDate(date)
+                        .build());
+
+        attendance.setStatus(status);
+        attendance.setCheckInTime(checkIn);
+        attendance.setCheckOutTime(checkOut);
+        attendance.setNotes(notes);
+
+        attendanceRepo.save(attendance);
     }
 }

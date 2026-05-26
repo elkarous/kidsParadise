@@ -63,14 +63,14 @@
                 </cursor>
             </Button>
 
-            <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#showEmployeeView" prefHeight="45.0" styleClass="sidebar-link" text="%nav.admins">
+            <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#showEmployeeView" prefHeight="45.0" styleClass="sidebar-link" text="%nav.employees.attendance">
                 <cursor>
                     <Cursor fx:constant="HAND" />
                 </cursor>
             </Button>
 
 
-            <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#showPayRollView" prefHeight="45.0" styleClass="sidebar-link" text="%nav.admins">
+            <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#showPayRollView" prefHeight="45.0" styleClass="sidebar-link" text="%nav.employees.payroll">
                 <cursor>
                     <Cursor fx:constant="HAND" />
                 </cursor>
