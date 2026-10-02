@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.kindererp.controller.ClassesController" spacing="16">
+    <padding>
+        <Insets top="16"/>
+    </padding>
+
+    <!-- Levels -->
+    <VBox styleClass="card" spacing="12" prefWidth="340" minWidth="300">
+        <Label text="%class.levels" styleClass="section-title"/>
+        <Label text="%class.levels.hint" styleClass="hint" wrapText="true"/>
+        <TableView fx:id="levelTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="levelNameColumn" text="%class.level" prefWidth="260"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN"/>
+            </columnResizePolicy>
+        </TableView>
+        <TextField fx:id="levelNameField" promptText="%class.level.prompt"/>
+        <HBox styleClass="button-bar">
+            <Button text="%btn.delete" onAction="#handleDeleteLevel" styleClass="btn-danger"/>
+            <Button text="%btn.new" onAction="#handleNewLevel"/>
+            <Button fx:id="saveLevelButton" text="%btn.save" onAction="#handleSaveLevel" styleClass="btn-primary"/>
+        </HBox>
+    </VBox>
+
+    <!-- Classes -->
+    <VBox styleClass="card" spacing="12" HBox.hgrow="ALWAYS">
+        <Label text="%class.classes" styleClass="section-title"/>
+        <TableView fx:id="classTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="classNameColumn" text="%class.name" prefWidth="200"/>
+                <TableColumn fx:id="classLevelColumn" text="%class.level" prefWidth="200"/>
+                <TableColumn fx:id="classTeacherColumn" text="%class.teacher" prefWidth="200"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN"/>
+            </columnResizePolicy>
+        </TableView>
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <TextField fx:id="classNameField" promptText="%class.name.prompt" HBox.hgrow="ALWAYS"/>
+            <ComboBox fx:id="classLevelCombo" promptText="%class.level" prefWidth="180"/>
+            <ComboBox fx:id="classTeacherCombo" promptText="%class.teacher" prefWidth="200"/>
+        </HBox>
+        <HBox styleClass="button-bar">
+            <Button text="%btn.delete" onAction="#handleDeleteClass" styleClass="btn-danger"/>
+            <Button text="%btn.new" onAction="#handleNewClass"/>
+            <Button fx:id="saveClassButton" text="%btn.save" onAction="#handleSaveClass" styleClass="btn-primary"/>
+        </HBox>
+    </VBox>
+</HBox>

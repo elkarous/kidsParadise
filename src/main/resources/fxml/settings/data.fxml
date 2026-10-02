@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.kindererp.controller.DataController" spacing="16">
+    <padding>
+        <Insets top="16"/>
+    </padding>
+
+    <VBox styleClass="card" spacing="10">
+        <Label text="%data.backup.title" styleClass="section-title"/>
+        <Label text="%data.backup.hint" styleClass="hint" wrapText="true"/>
+        <Label fx:id="locationLabel" styleClass="hint" wrapText="true"/>
+        <HBox spacing="12">
+            <Button fx:id="backupButton" text="%data.backup" onAction="#handleBackup" styleClass="btn-primary"/>
+            <Button fx:id="restoreButton" text="%data.restore" onAction="#handleRestore" styleClass="btn-danger"/>
+            <Button text="%data.openFolder" onAction="#handleOpenFolder"/>
+        </HBox>
+    </VBox>
+
+    <VBox styleClass="card" spacing="10">
+        <Label text="%export.title" styleClass="section-title"/>
+        <Label text="%export.hint" styleClass="hint" wrapText="true"/>
+        <HBox>
+            <Button fx:id="exportButton" text="%export.button" onAction="#handleExport" styleClass="btn-primary"/>
+        </HBox>
+    </VBox>
+</VBox>

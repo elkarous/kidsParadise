@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.kindererp.controller.ParentFormController" styleClass="dialog-content" prefWidth="480">
+
+    <GridPane styleClass="form">
+        <columnConstraints>
+            <ColumnConstraints minWidth="140"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
+        <Label text="%parent.fatherName" styleClass="field-label" GridPane.rowIndex="0"/>
+        <TextField fx:id="fatherField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        <Label text="%parent.motherName" styleClass="field-label" GridPane.rowIndex="1"/>
+        <TextField fx:id="motherField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <Label text="%parent.phone" styleClass="field-label" GridPane.rowIndex="2"/>
+        <TextField fx:id="phoneField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        <Label text="%parent.email" styleClass="field-label" GridPane.rowIndex="3"/>
+        <TextField fx:id="emailField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <HBox styleClass="button-bar">
+        <Button text="%btn.cancel" onAction="#handleCancel" cancelButton="true"/>
+        <Button fx:id="saveButton" text="%btn.save" onAction="#handleSave" defaultButton="true" styleClass="btn-primary"/>
+    </HBox>
+</VBox>

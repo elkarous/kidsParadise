@@ -1,0 +1,46 @@
+# Build output
+target/
+build/
+out/
+
+# Maven wrapper binary (downloaded on demand)
+.mvn/wrapper/maven-wrapper.jar
+
+# Databases, backups and exports: never commit school data
+*.db
+*.db-wal
+*.db-shm
+*.db-journal
+*.sqlite
+*.sqlite3
+backups/
+exports/
+*.xlsx
+logs/
+*.log
+
+# License private key (vendor side) must never be committed
+*.key
+*.pem
+
+# IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.classpath
+.project
+.settings/
+.factorypath
+.apt_generated
+.sts4-cache
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# OS
+Thumbs.db
+.DS_Store

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.kindererp.controller.ParentListController" styleClass="page">
+
+    <HBox alignment="CENTER_LEFT" spacing="16">
+        <VBox HBox.hgrow="ALWAYS">
+            <Label text="%parents.title" styleClass="page-title"/>
+            <Label text="%parents.subtitle" styleClass="page-subtitle"/>
+        </VBox>
+        <Button text="%parents.add" onAction="#handleAdd" styleClass="btn-primary"/>
+    </HBox>
+
+    <HBox styleClass="toolbar">
+        <TextField fx:id="searchField" promptText="%parents.search" HBox.hgrow="ALWAYS"/>
+        <Label fx:id="countLabel" styleClass="hint"/>
+    </HBox>
+
+    <TableView fx:id="table" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="fatherColumn" text="%parent.fatherName" prefWidth="200"/>
+            <TableColumn fx:id="motherColumn" text="%parent.motherName" prefWidth="200"/>
+            <TableColumn fx:id="phoneColumn" text="%parent.phone" prefWidth="140"/>
+            <TableColumn fx:id="childrenColumn" text="%parent.childCount" prefWidth="110"/>
+            <TableColumn fx:id="feeColumn" text="%parent.monthlyFee" prefWidth="150"/>
+            <TableColumn fx:id="deleteColumn" prefWidth="60" minWidth="60" maxWidth="60"/>
+        </columns>
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN"/>
+        </columnResizePolicy>
+    </TableView>
+</VBox>

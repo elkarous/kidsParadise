@@ -1,0 +1,11 @@
+package com.kindererp.repository;
+
+import com.kindererp.model.Level;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface LevelRepository extends JpaRepository<Level, Long> {
+
+    List<Level> findAllByOrderByNameAsc();
+}

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.kindererp.controller.StudentFormController" styleClass="dialog-content" prefWidth="520">
+
+    <GridPane styleClass="form">
+        <columnConstraints>
+            <ColumnConstraints minWidth="150"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
+        <Label text="%student.firstName" styleClass="field-label" GridPane.rowIndex="0"/>
+        <TextField fx:id="firstNameField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        <Label text="%student.lastName" styleClass="field-label" GridPane.rowIndex="1"/>
+        <TextField fx:id="lastNameField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <Label text="%student.birthDate" styleClass="field-label" GridPane.rowIndex="2"/>
+        <DatePicker fx:id="birthDatePicker" maxWidth="Infinity" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        <Label text="%student.enrollmentDate" styleClass="field-label" GridPane.rowIndex="3"/>
+        <DatePicker fx:id="enrollmentDatePicker" maxWidth="Infinity" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        <Label text="%class.level" styleClass="field-label" GridPane.rowIndex="4"/>
+        <ComboBox fx:id="levelCombo" maxWidth="Infinity" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+        <Label text="%class.name" styleClass="field-label" GridPane.rowIndex="5"/>
+        <ComboBox fx:id="classCombo" maxWidth="Infinity" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+        <Label text="%student.parent" styleClass="field-label" GridPane.rowIndex="6"/>
+        <ComboBox fx:id="parentCombo" maxWidth="Infinity" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <HBox styleClass="button-bar">
+        <Button text="%btn.cancel" onAction="#handleCancel" cancelButton="true"/>
+        <Button fx:id="saveButton" text="%btn.save" onAction="#handleSave" defaultButton="true" styleClass="btn-primary"/>
+    </HBox>
+</VBox>

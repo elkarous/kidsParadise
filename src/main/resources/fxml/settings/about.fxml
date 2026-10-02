@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<!-- Product version and license activation. Used in Settings and on the activation screen. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.kindererp.controller.AboutController" spacing="16">
+    <padding>
+        <Insets top="16"/>
+    </padding>
+
+    <HBox styleClass="card" spacing="16" alignment="CENTER_LEFT">
+        <ImageView fx:id="productIcon" fitWidth="64" fitHeight="64" preserveRatio="true"/>
+        <VBox spacing="4">
+            <Label fx:id="productLabel" styleClass="page-title"/>
+            <Label fx:id="versionLabel" styleClass="page-subtitle"/>
+        </VBox>
+    </HBox>
+
+    <VBox styleClass="card" spacing="10">
+        <Label text="%license.title" styleClass="section-title"/>
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <Label text="%license.status" styleClass="field-label"/>
+            <Label fx:id="statusLabel" styleClass="badge"/>
+        </HBox>
+        <Label text="%license.machineId" styleClass="field-label"/>
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <TextField fx:id="machineIdField" editable="false" prefWidth="260" nodeOrientation="LEFT_TO_RIGHT"/>
+            <Button text="%license.copy" onAction="#handleCopy"/>
+        </HBox>
+        <Label text="%license.howTo" styleClass="hint" wrapText="true"/>
+        <Label text="%license.key" styleClass="field-label"/>
+        <TextArea fx:id="keyField" prefRowCount="2" wrapText="true" nodeOrientation="LEFT_TO_RIGHT"/>
+        <HBox styleClass="button-bar">
+            <Button fx:id="activateButton" text="%license.activate" onAction="#handleActivate" styleClass="btn-primary"/>
+        </HBox>
+    </VBox>
+</VBox>

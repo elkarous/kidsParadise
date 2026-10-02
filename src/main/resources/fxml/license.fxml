@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!-- Shown at startup when the trial has ended and no valid license is installed. -->
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.kindererp.controller.LicenseController" prefWidth="640" prefHeight="620">
+    <top>
+        <VBox styleClass="top-bar">
+            <Label text="%license.expired.title" styleClass="page-title"/>
+            <Label text="%license.expired.subtitle" styleClass="page-subtitle" wrapText="true"/>
+        </VBox>
+    </top>
+    <center>
+        <VBox styleClass="page">
+            <fx:include fx:id="about" source="settings/about.fxml"/>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox styleClass="top-bar" alignment="CENTER_RIGHT">
+            <Button text="%license.quit" onAction="#handleQuit"/>
+        </HBox>
+    </bottom>
+</BorderPane>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.kindererp.controller.PayrollListController" spacing="16">
+    <padding>
+        <Insets top="12"/>
+    </padding>
+
+    <TableView fx:id="table" HBox.hgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="nameColumn" text="%staff.name" prefWidth="200"/>
+            <TableColumn fx:id="workColumn" text="%payroll.attendance" prefWidth="130"/>
+            <TableColumn fx:id="grossColumn" text="%payroll.gross" prefWidth="130"/>
+            <TableColumn fx:id="paidColumn" text="%payroll.paidTotal" prefWidth="130"/>
+            <TableColumn fx:id="pendingColumn" text="%payroll.pending" prefWidth="130"/>
+            <TableColumn fx:id="statusColumn" text="%payment.status" prefWidth="130"/>
+        </columns>
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN"/>
+        </columnResizePolicy>
+    </TableView>
+
+    <ScrollPane fitToWidth="true" minWidth="290" prefWidth="300" maxWidth="320" hbarPolicy="NEVER" styleClass="edge-to-edge">
+    <VBox styleClass="card" spacing="10">
+        <Label text="%payroll.payout" styleClass="section-title"/>
+        <Label fx:id="selectedLabel" styleClass="field-label" wrapText="true"/>
+        <GridPane styleClass="form">
+            <columnConstraints>
+                <ColumnConstraints/>
+                <ColumnConstraints hgrow="ALWAYS" halignment="RIGHT"/>
+            </columnConstraints>
+            <Label text="%payroll.gross" GridPane.rowIndex="0"/>
+            <Label fx:id="grossLabel" styleClass="field-label" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+            <Label text="%payroll.paidTotal" GridPane.rowIndex="1"/>
+            <Label fx:id="paidLabel" styleClass="field-label" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            <Label text="%payroll.pending" GridPane.rowIndex="2"/>
+            <Label fx:id="pendingLabel" styleClass="amount-strong" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        </GridPane>
+        <Separator/>
+        <Label text="%payroll.amountNow" styleClass="field-label"/>
+        <TextField fx:id="amountField"/>
+        <Label text="%payment.method" styleClass="field-label"/>
+        <ComboBox fx:id="methodCombo" maxWidth="Infinity"/>
+        <Label text="%payroll.reference" styleClass="field-label"/>
+        <TextField fx:id="referenceField"/>
+        <CheckBox fx:id="printCheck" text="%payroll.printSlip"/>
+        <Button fx:id="payButton" text="%payroll.confirm" onAction="#handlePay" styleClass="btn-success" maxWidth="Infinity"/>
+    </VBox>
+    </ScrollPane>
+</HBox>

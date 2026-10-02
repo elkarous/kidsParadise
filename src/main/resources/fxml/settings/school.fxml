@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<!-- School identity, currency, fees and calendar. Used in Settings and in the setup wizard. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.kindererp.controller.SchoolSettingsController" spacing="16">
+
+    <VBox styleClass="card" spacing="12">
+        <Label text="%setup.section.school" styleClass="section-title"/>
+        <GridPane styleClass="form">
+            <columnConstraints>
+                <ColumnConstraints minWidth="190"/>
+                <ColumnConstraints hgrow="ALWAYS"/>
+            </columnConstraints>
+            <Label text="%school.nameFr" styleClass="field-label" GridPane.rowIndex="0"/>
+            <TextField fx:id="nameFrField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+            <Label text="%school.nameAr" styleClass="field-label" GridPane.rowIndex="1"/>
+            <TextField fx:id="nameArField" nodeOrientation="RIGHT_TO_LEFT" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            <Label text="%school.address" styleClass="field-label" GridPane.rowIndex="2"/>
+            <TextField fx:id="addressField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            <Label text="%school.phone" styleClass="field-label" GridPane.rowIndex="3"/>
+            <TextField fx:id="phoneField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+            <Label text="%school.email" styleClass="field-label" GridPane.rowIndex="4"/>
+            <TextField fx:id="emailField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+            <Label text="%school.region" styleClass="field-label" GridPane.rowIndex="5"/>
+            <ComboBox fx:id="regionCombo" maxWidth="Infinity" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+            <Label text="%school.logo" styleClass="field-label" GridPane.rowIndex="6"/>
+            <HBox spacing="12" alignment="CENTER_LEFT" GridPane.rowIndex="6" GridPane.columnIndex="1">
+                <ImageView fx:id="logoPreview" fitWidth="56" fitHeight="56" preserveRatio="true"/>
+                <Button text="%school.logo.choose" onAction="#handleChooseLogo"/>
+                <Button text="%school.logo.remove" onAction="#handleRemoveLogo"/>
+            </HBox>
+        </GridPane>
+    </VBox>
+
+    <VBox styleClass="card" spacing="12">
+        <Label text="%setup.section.fees" styleClass="section-title"/>
+        <GridPane styleClass="form">
+            <columnConstraints>
+                <ColumnConstraints minWidth="190"/>
+                <ColumnConstraints hgrow="ALWAYS"/>
+            </columnConstraints>
+            <Label text="%school.currency" styleClass="field-label" GridPane.rowIndex="0"/>
+            <HBox spacing="12" alignment="CENTER_LEFT" GridPane.rowIndex="0" GridPane.columnIndex="1">
+                <TextField fx:id="currencyField" prefWidth="90"/>
+                <Label text="%school.currencyDecimals" styleClass="field-label"/>
+                <Spinner fx:id="decimalsSpinner" prefWidth="80"/>
+            </HBox>
+            <Label text="%fees.monthlyFee" styleClass="field-label" GridPane.rowIndex="1"/>
+            <TextField fx:id="monthlyFeeField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            <Label text="%fees.discountTwo" styleClass="field-label" GridPane.rowIndex="2"/>
+            <TextField fx:id="discountTwoField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            <Label text="%fees.discountThreePlus" styleClass="field-label" GridPane.rowIndex="3"/>
+            <TextField fx:id="discountThreeField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+            <Label text="%schoolYears.startMonth" styleClass="field-label" GridPane.rowIndex="4"/>
+            <ComboBox fx:id="startMonthCombo" maxWidth="Infinity" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+            <Label text="%schoolYears.endMonth" styleClass="field-label" GridPane.rowIndex="5"/>
+            <ComboBox fx:id="endMonthCombo" maxWidth="Infinity" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+        </GridPane>
+        <Label text="%fees.hint" styleClass="hint" wrapText="true"/>
+    </VBox>
+
+    <HBox fx:id="saveBar" styleClass="button-bar">
+        <Button fx:id="saveButton" text="%btn.save" onAction="#handleSave" styleClass="btn-primary"/>
+    </HBox>
+</VBox>

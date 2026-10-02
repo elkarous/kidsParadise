@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.kindererp.controller.SchoolYearsController" spacing="16">
+    <padding>
+        <Insets top="16"/>
+    </padding>
+
+    <VBox spacing="12" HBox.hgrow="ALWAYS">
+        <HBox styleClass="toolbar">
+            <TextField fx:id="yearNameField" promptText="%schoolYears.name.prompt" prefWidth="200"/>
+            <Button fx:id="createButton" text="%schoolYears.create" onAction="#handleCreate" styleClass="btn-primary"/>
+            <Label text="%schoolYears.create.hint" styleClass="hint" wrapText="true" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+        </HBox>
+        <TableView fx:id="yearTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="yearNameColumn" text="%schoolYears.name" prefWidth="160"/>
+                <TableColumn fx:id="yearStartColumn" text="%schoolYears.start" prefWidth="160"/>
+                <TableColumn fx:id="yearEndColumn" text="%schoolYears.end" prefWidth="160"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN"/>
+            </columnResizePolicy>
+        </TableView>
+    </VBox>
+
+    <VBox styleClass="card" spacing="12" prefWidth="360" minWidth="320">
+        <Label text="%schoolYears.months" styleClass="section-title"/>
+        <Label text="%schoolYears.months.hint" styleClass="hint" wrapText="true"/>
+        <TableView fx:id="monthTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="monthNameColumn" text="%payment.month" prefWidth="170"/>
+                <TableColumn fx:id="monthStatusColumn" text="%payment.status" prefWidth="120"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN"/>
+            </columnResizePolicy>
+        </TableView>
+        <Button fx:id="toggleMonthButton" text="%schoolYears.toggleMonth" onAction="#handleToggleMonth" maxWidth="Infinity"/>
+    </VBox>
+</HBox>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.kindererp.controller.SetupController"
+            prefWidth="860" prefHeight="760">
+    <top>
+        <HBox styleClass="top-bar">
+            <ImageView fx:id="productIcon" fitWidth="40" fitHeight="40" preserveRatio="true"/>
+            <VBox HBox.hgrow="ALWAYS">
+                <Label text="%setup.title" styleClass="page-title"/>
+                <Label text="%setup.subtitle" styleClass="page-subtitle" wrapText="true"/>
+            </VBox>
+            <ComboBox fx:id="languageCombo" prefWidth="140"/>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true">
+            <VBox styleClass="page">
+                <fx:include fx:id="schoolForm" source="settings/school.fxml"/>
+
+                <VBox styleClass="card" spacing="12">
+                    <Label text="%setup.section.year" styleClass="section-title"/>
+                    <GridPane styleClass="form">
+                        <columnConstraints>
+                            <ColumnConstraints minWidth="190"/>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                        </columnConstraints>
+                        <Label text="%schoolYears.name" styleClass="field-label" GridPane.rowIndex="0"/>
+                        <TextField fx:id="yearNameField" promptText="%schoolYears.name.prompt" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                    </GridPane>
+                </VBox>
+
+                <VBox styleClass="card" spacing="12">
+                    <Label text="%setup.section.admin" styleClass="section-title"/>
+                    <Label text="%setup.section.admin.hint" styleClass="hint" wrapText="true"/>
+                    <GridPane styleClass="form">
+                        <columnConstraints>
+                            <ColumnConstraints minWidth="190"/>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                        </columnConstraints>
+                        <Label text="%users.fullName" styleClass="field-label" GridPane.rowIndex="0"/>
+                        <TextField fx:id="adminFullNameField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                        <Label text="%login.username" styleClass="field-label" GridPane.rowIndex="1"/>
+                        <TextField fx:id="adminUsernameField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                        <Label text="%login.password" styleClass="field-label" GridPane.rowIndex="2"/>
+                        <PasswordField fx:id="adminPasswordField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                        <Label text="%users.passwordConfirm" styleClass="field-label" GridPane.rowIndex="3"/>
+                        <PasswordField fx:id="adminPasswordConfirmField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                    </GridPane>
+                    <CheckBox fx:id="demoDataCheck" text="%setup.demoData"/>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <bottom>
+        <HBox styleClass="top-bar" alignment="CENTER_RIGHT">
+            <Button fx:id="finishButton" text="%setup.finish" onAction="#handleFinish" styleClass="btn-primary"/>
+        </HBox>
+    </bottom>
+</BorderPane>

@@ -1,0 +1,217 @@
+/*
+ * KinderERP — single stylesheet for every screen, dialog and printout.
+ * Colours are defined once on .root and reused through looked-up colours.
+ * Use logical alignments (CENTER_LEFT / BASELINE_LEFT): JavaFX mirrors them in Arabic (RTL).
+ */
+
+.root {
+    -primary: #4F46E5;
+    -primary-dark: #4338CA;
+    -primary-soft: #EEF2FF;
+    -success: #059669;
+    -success-soft: #ECFDF5;
+    -warning: #B45309;
+    -warning-soft: #FEF3C7;
+    -danger: #DC2626;
+    -danger-soft: #FEF2F2;
+    -text: #0F172A;
+    -text-muted: #64748B;
+    -border: #E2E8F0;
+    -surface: #FFFFFF;
+    -background: #F8FAFC;
+    -sidebar: #0F172A;
+
+    -fx-font-family: "Tajawal";
+    -fx-font-size: 14px;
+    -fx-background-color: -background;
+    -fx-text-fill: -text;
+    -fx-accent: -primary;
+    -fx-focus-color: -primary;
+    -fx-faint-focus-color: transparent;
+}
+
+/* ---------- Typography ---------- */
+
+.page-title { -fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: -text; }
+.page-subtitle { -fx-font-size: 13px; -fx-text-fill: -text-muted; }
+.section-title { -fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: -text; }
+.field-label { -fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #475569; }
+.hint { -fx-font-size: 12px; -fx-text-fill: -text-muted; }
+.amount-strong { -fx-font-size: 16px; -fx-font-weight: bold; }
+
+/* ---------- Layout blocks ---------- */
+
+.page { -fx-padding: 24; -fx-spacing: 16; -fx-background-color: -background; }
+
+.card {
+    -fx-background-color: -surface;
+    -fx-background-radius: 10;
+    -fx-border-color: -border;
+    -fx-border-radius: 10;
+    -fx-padding: 16;
+}
+
+.toolbar {
+    -fx-background-color: -surface;
+    -fx-background-radius: 10;
+    -fx-border-color: -border;
+    -fx-border-radius: 10;
+    -fx-padding: 10 16;
+    -fx-spacing: 12;
+    -fx-alignment: center-left;
+}
+
+.form { -fx-hgap: 16; -fx-vgap: 12; }
+
+.dialog-content { -fx-padding: 24; -fx-spacing: 16; -fx-background-color: -surface; }
+
+.button-bar { -fx-spacing: 10; -fx-alignment: center-right; -fx-padding: 8 0 0 0; }
+
+/* ---------- Buttons ---------- */
+
+.button {
+    -fx-background-radius: 6;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-background-color: -surface;
+    -fx-border-color: -border;
+    -fx-border-radius: 6;
+    -fx-text-fill: -text;
+}
+.button:hover { -fx-background-color: #F1F5F9; }
+
+.btn-primary { -fx-background-color: -primary; -fx-border-color: -primary; -fx-text-fill: white; }
+.btn-primary:hover { -fx-background-color: -primary-dark; }
+
+.btn-success { -fx-background-color: -success; -fx-border-color: -success; -fx-text-fill: white; }
+.btn-success:hover { -fx-background-color: #047857; }
+
+.btn-danger { -fx-background-color: -danger-soft; -fx-border-color: #FECACA; -fx-text-fill: -danger; }
+.btn-danger:hover { -fx-background-color: #FEE2E2; }
+
+.btn-icon { -fx-padding: 4 8; -fx-min-width: 34; }
+.btn-icon .icon { -fx-fill: -text-muted; }
+.btn-icon.btn-danger .icon { -fx-fill: -danger; }
+.btn-primary .icon { -fx-fill: white; }
+
+.button:disabled { -fx-opacity: 0.5; }
+
+/* ---------- Inputs ---------- */
+
+.text-field, .password-field, .text-area, .combo-box, .date-picker, .spinner {
+    -fx-background-color: -surface;
+    -fx-background-radius: 6;
+    -fx-border-color: -border;
+    -fx-border-radius: 6;
+}
+.text-field, .password-field { -fx-padding: 7 10; }
+.text-field:focused, .password-field:focused, .combo-box:focused, .date-picker:focused {
+    -fx-border-color: -primary;
+}
+.date-picker > .text-field, .spinner > .text-field, .combo-box .text-field { -fx-border-width: 0; -fx-background-color: transparent; }
+
+.field-error, .field-error:focused { -fx-border-color: -danger; -fx-border-width: 1.5; }
+
+/* ---------- Tables ---------- */
+
+.table-view {
+    -fx-background-color: -surface;
+    -fx-border-color: -border;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 0;
+}
+.table-view .column-header-background { -fx-background-color: #F1F5F9; -fx-background-radius: 8 8 0 0; }
+.table-view .column-header, .table-view .filler { -fx-background-color: transparent; -fx-size: 38; }
+.table-view .column-header .label { -fx-text-fill: #475569; -fx-font-weight: bold; -fx-alignment: center-left; }
+.table-row-cell { -fx-background-color: -surface; -fx-border-color: transparent transparent #F1F5F9 transparent; -fx-cell-size: 40; }
+.table-row-cell:hover { -fx-background-color: #F8FAFC; }
+.table-row-cell:filled:selected { -fx-background-color: -primary-soft; }
+.table-row-cell:filled:selected .table-cell { -fx-text-fill: -text; }
+.table-cell { -fx-alignment: center-left; -fx-padding: 0 10; }
+.table-cell.cell-amount { -fx-alignment: center-right; }
+.table-cell.cell-center { -fx-alignment: center; }
+
+/* ---------- Badges ---------- */
+
+.badge { -fx-padding: 3 10; -fx-background-radius: 12; -fx-font-size: 12px; -fx-font-weight: bold; }
+.badge-success { -fx-background-color: -success-soft; -fx-text-fill: -success; }
+.badge-warning { -fx-background-color: -warning-soft; -fx-text-fill: -warning; }
+.badge-danger { -fx-background-color: -danger-soft; -fx-text-fill: -danger; }
+.badge-neutral { -fx-background-color: #F1F5F9; -fx-text-fill: -text-muted; }
+
+/* ---------- Stat boxes (totals) ---------- */
+
+.stat-box { -fx-padding: 10 16; -fx-background-radius: 8; -fx-border-radius: 8; -fx-spacing: 10; -fx-alignment: center-left; }
+.stat-box .label { -fx-font-weight: bold; }
+.stat-neutral { -fx-background-color: #F1F5F9; -fx-border-color: -border; }
+.stat-success { -fx-background-color: -success-soft; -fx-border-color: #A7F3D0; }
+.stat-success .label { -fx-text-fill: #065F46; }
+.stat-danger { -fx-background-color: -danger-soft; -fx-border-color: #FECACA; }
+.stat-danger .label { -fx-text-fill: #991B1B; }
+
+/* ---------- Tabs ---------- */
+
+.tab-pane > .tab-header-area > .headers-region > .tab {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-padding: 8 16;
+}
+.tab-pane > .tab-header-area > .headers-region > .tab .tab-label { -fx-text-fill: -text-muted; -fx-font-weight: bold; }
+.tab-pane > .tab-header-area > .headers-region > .tab:selected {
+    -fx-border-color: transparent transparent -primary transparent;
+    -fx-border-width: 0 0 3 0;
+}
+.tab-pane > .tab-header-area > .headers-region > .tab:selected .tab-label { -fx-text-fill: -primary; }
+.tab-pane > .tab-header-area > .tab-header-background { -fx-background-color: transparent; }
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator { -fx-border-color: transparent; }
+
+/* ---------- Application shell ---------- */
+
+.top-bar {
+    -fx-background-color: -surface;
+    -fx-border-color: -border;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 10 24;
+    -fx-spacing: 14;
+    -fx-alignment: center-left;
+}
+.school-name { -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: -text; }
+.year-chip { -fx-background-color: -success-soft; -fx-text-fill: -success; -fx-background-radius: 14; -fx-padding: 4 14; -fx-font-weight: bold; }
+
+.sidebar { -fx-background-color: -sidebar; -fx-padding: 20 12; -fx-spacing: 4; -fx-pref-width: 220; -fx-min-width: 200; }
+.sidebar-link {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-text-fill: #CBD5E1;
+    -fx-font-size: 14px;
+    -fx-alignment: center-left;
+    -fx-padding: 10 14;
+    -fx-max-width: infinity;
+}
+.sidebar-link:hover { -fx-background-color: #1E293B; -fx-text-fill: white; }
+.sidebar-link.active { -fx-background-color: -primary; -fx-text-fill: white; }
+
+.trial-banner { -fx-background-color: -warning-soft; -fx-padding: 6 24; -fx-alignment: center-left; -fx-spacing: 12; }
+.trial-banner .label { -fx-text-fill: -warning; -fx-font-weight: bold; }
+
+/* ---------- Login / setup ---------- */
+
+.login-pane { -fx-padding: 32; -fx-spacing: 14; -fx-alignment: center; -fx-background-color: -background; }
+.login-card { -fx-background-color: -surface; -fx-background-radius: 12; -fx-border-color: -border; -fx-border-radius: 12; -fx-padding: 28; -fx-spacing: 12; -fx-alignment: center; }
+.login-title { -fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: -text; -fx-text-alignment: center; }
+
+/* ---------- Print ---------- */
+
+.print-document { -fx-background-color: white; }
+.print-document .label { -fx-text-fill: black; }
+.print-school-name { -fx-font-size: 18px; -fx-font-weight: bold; }
+.print-title { -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 4 0; }
+
+/* ---------- Dialogs ---------- */
+
+.dialog-pane { -fx-background-color: -surface; }
+.dialog-pane > .content.label { -fx-padding: 16; -fx-font-size: 14px; -fx-wrap-text: true; }
+
+.scroll-pane.edge-to-edge, .scroll-pane.edge-to-edge > .viewport { -fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0; }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.kindererp.controller.TuitionController" styleClass="page">
+
+    <VBox>
+        <Label text="%tuition.title" styleClass="page-title"/>
+        <Label text="%tuition.subtitle" styleClass="page-subtitle"/>
+    </VBox>
+
+    <HBox styleClass="toolbar">
+        <Label text="%payment.month" styleClass="field-label"/>
+        <ComboBox fx:id="monthCombo" prefWidth="220"/>
+        <TextField fx:id="searchField" promptText="%parents.search" HBox.hgrow="ALWAYS"/>
+        <CheckBox fx:id="unpaidOnlyCheck" text="%tuition.unpaidOnly"/>
+    </HBox>
+
+    <TableView fx:id="table" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="parentColumn" text="%parent.fatherName" prefWidth="220"/>
+            <TableColumn fx:id="phoneColumn" text="%parent.phone" prefWidth="130"/>
+            <TableColumn fx:id="childrenColumn" text="%parent.childCount" prefWidth="100"/>
+            <TableColumn fx:id="amountColumn" text="%payment.total" prefWidth="140"/>
+            <TableColumn fx:id="statusColumn" text="%payment.status" prefWidth="120"/>
+            <TableColumn fx:id="dateColumn" text="%payment.date" prefWidth="130"/>
+            <TableColumn fx:id="actionColumn" prefWidth="170" minWidth="170"/>
+        </columns>
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN"/>
+        </columnResizePolicy>
+    </TableView>
+
+    <HBox spacing="12" alignment="CENTER_RIGHT">
+        <HBox styleClass="stat-box, stat-neutral">
+            <Label text="%tuition.expected"/>
+            <Label fx:id="expectedLabel" styleClass="amount-strong"/>
+        </HBox>
+        <HBox styleClass="stat-box, stat-success">
+            <Label text="%tuition.collected"/>
+            <Label fx:id="collectedLabel" styleClass="amount-strong"/>
+        </HBox>
+        <HBox styleClass="stat-box, stat-danger">
+            <Label text="%tuition.pending"/>
+            <Label fx:id="pendingLabel" styleClass="amount-strong"/>
+        </HBox>
+    </HBox>
+</VBox>

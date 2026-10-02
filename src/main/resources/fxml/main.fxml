@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.kindererp.controller.MainController"
+            prefWidth="1280" prefHeight="800">
+    <top>
+        <VBox>
+            <HBox styleClass="top-bar">
+                <ImageView fx:id="logoView" fitWidth="44" fitHeight="44" preserveRatio="true"/>
+                <Label fx:id="schoolNameLabel" styleClass="school-name"/>
+                <Label fx:id="schoolYearLabel" styleClass="year-chip"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="userLabel" styleClass="page-subtitle"/>
+                <Button text="%main.logout" onAction="#handleLogout" styleClass="btn-danger"/>
+            </HBox>
+            <HBox fx:id="trialBanner" styleClass="trial-banner" visible="false" managed="false">
+                <Label fx:id="trialLabel"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <left>
+        <VBox styleClass="sidebar">
+            <Button fx:id="navStudents" text="%nav.students" onAction="#showStudents" styleClass="sidebar-link"/>
+            <Button fx:id="navParents" text="%nav.parents" onAction="#showParents" styleClass="sidebar-link"/>
+            <Button fx:id="navTuition" text="%nav.tuition" onAction="#showTuition" styleClass="sidebar-link"/>
+            <Button fx:id="navAttendance" text="%nav.attendance" onAction="#showAttendance" styleClass="sidebar-link"/>
+            <Separator/>
+            <Button fx:id="navStaff" text="%nav.staff" onAction="#showStaff" styleClass="sidebar-link"/>
+            <Button fx:id="navStaffAttendance" text="%nav.staffAttendance" onAction="#showStaffAttendance" styleClass="sidebar-link"/>
+            <Button fx:id="navPayroll" text="%nav.payroll" onAction="#showPayroll" styleClass="sidebar-link"/>
+            <Region VBox.vgrow="ALWAYS"/>
+            <Button fx:id="navSettings" text="%nav.settings" onAction="#showSettings" styleClass="sidebar-link"/>
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane fx:id="contentArea"/>
+    </center>
+</BorderPane>

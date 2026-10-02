@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.kindererp.controller.LoginController"
+      styleClass="login-pane" prefWidth="460" prefHeight="620">
+
+    <HBox alignment="CENTER_LEFT" spacing="8">
+        <Label text="%login.language"/>
+        <ComboBox fx:id="languageCombo" prefWidth="140"/>
+    </HBox>
+
+    <VBox styleClass="login-card" VBox.vgrow="ALWAYS">
+        <ImageView fx:id="logoView" fitWidth="96" fitHeight="96" preserveRatio="true"/>
+        <Label fx:id="schoolNameLabel" styleClass="login-title" wrapText="true"/>
+        <Label text="%login.header" styleClass="page-subtitle"/>
+
+        <VBox spacing="6" maxWidth="300">
+            <Label text="%login.username" styleClass="field-label"/>
+            <TextField fx:id="usernameField"/>
+            <Label text="%login.password" styleClass="field-label"/>
+            <PasswordField fx:id="passwordField" onAction="#handleLogin"/>
+            <Label text="%login.schoolYear" styleClass="field-label"/>
+            <ComboBox fx:id="schoolYearCombo" maxWidth="Infinity"/>
+        </VBox>
+
+        <Button fx:id="loginButton" text="%login.submit" onAction="#handleLogin" defaultButton="true"
+                styleClass="btn-primary" prefWidth="300"/>
+    </VBox>
+</VBox>

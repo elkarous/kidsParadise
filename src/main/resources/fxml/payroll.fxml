@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.kindererp.controller.PayrollController" styleClass="page">
+    <VBox>
+        <Label text="%payroll.title" styleClass="page-title"/>
+        <Label text="%payroll.subtitle" styleClass="page-subtitle"/>
+    </VBox>
+    <HBox styleClass="toolbar">
+        <Label text="%payment.month" styleClass="field-label"/>
+        <ComboBox fx:id="monthCombo" prefWidth="220"/>
+        <Label text="%payroll.rule" styleClass="hint" wrapText="true" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+    </HBox>
+    <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+        <Tab fx:id="teachersTab" text="%staff.teachers"/>
+        <Tab fx:id="employeesTab" text="%staff.employees"/>
+    </TabPane>
+</VBox>

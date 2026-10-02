@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.kindererp.controller.PaymentDialogController" styleClass="dialog-content" prefWidth="480">
+
+    <GridPane styleClass="form">
+        <columnConstraints>
+            <ColumnConstraints minWidth="160"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
+        <Label text="%parent.fatherName" styleClass="field-label" GridPane.rowIndex="0"/>
+        <Label fx:id="parentLabel" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        <Label text="%payment.month" styleClass="field-label" GridPane.rowIndex="1"/>
+        <Label fx:id="monthLabel" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <Label text="%parent.childCount" styleClass="field-label" GridPane.rowIndex="2"/>
+        <Label fx:id="childrenLabel" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        <Label text="%payment.baseAmount" styleClass="field-label" GridPane.rowIndex="3"/>
+        <Label fx:id="baseLabel" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        <Label text="%payment.discount" styleClass="field-label" GridPane.rowIndex="4"/>
+        <Label fx:id="discountLabel" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+        <Label text="%payment.total" styleClass="field-label" GridPane.rowIndex="5"/>
+        <Label fx:id="totalLabel" styleClass="amount-strong" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+        <Label text="%payment.method" styleClass="field-label" GridPane.rowIndex="6"/>
+        <ComboBox fx:id="methodCombo" maxWidth="Infinity" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+        <Label text="%payment.notes" styleClass="field-label" GridPane.rowIndex="7"/>
+        <TextField fx:id="notesField" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <CheckBox fx:id="printCheck" text="%payment.printReceipt" selected="true"/>
+
+    <HBox styleClass="button-bar">
+        <Button text="%btn.cancel" onAction="#handleCancel" cancelButton="true"/>
+        <Button fx:id="confirmButton" text="%payment.confirm" onAction="#handleConfirm" defaultButton="true" styleClass="btn-success"/>
+    </HBox>
+</VBox>

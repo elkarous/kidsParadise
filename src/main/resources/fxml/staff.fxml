@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!-- One tab per staff kind; each tab hosts staff_list.fxml. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.kindererp.controller.StaffController" styleClass="page">
+    <VBox>
+        <Label text="%staff.title" styleClass="page-title"/>
+        <Label text="%staff.subtitle" styleClass="page-subtitle"/>
+    </VBox>
+    <TabPane fx:id="tabs" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+        <Tab fx:id="teachersTab" text="%staff.teachers"/>
+        <Tab fx:id="employeesTab" text="%staff.employees"/>
+    </TabPane>
+</VBox>
